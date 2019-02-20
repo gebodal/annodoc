@@ -1,1 +1,6 @@
 _site/
+
+# Vim swap files
+*.sw[a-p]
+# Not entirely sure what this is, but it seems to be like a swap file
+.~lock.*
