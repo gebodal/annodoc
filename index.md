@@ -41,6 +41,15 @@ A brief introduction to the brat interface may be found [here](http://brat.nlpla
 
 
 ~~~ ann
+H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma )
+T1 ParameterSymbol 0 9 H _ { 0 }
+T2 MeasuredValue 12 54 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
+T3 ConfidenceLimit 55 67 ( 1 \sigma )
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Confidence Arg1:T2 Arg2:T3
+~~~
+
+~~~ ann
 In the framework of the \Lambda CDM model our joint analysis yields a value of H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma ) with the best fit density parameter \Omega _ { M } = 0.27 \pm 0.03 .
 T1 ParameterSymbol 79 88 H _ { 0 }
 T2 MeasuredValue 91 133 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
