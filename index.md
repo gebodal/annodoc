@@ -25,7 +25,7 @@ To move further with the project we now require a corpus of annotated examples t
 * [{{ e.title  }}]({{ e.url | remove_first:'/'  }}): {{ e.shortdef  }}
 {% endfor %}
 
-{% for e in site.relation %}
+{% for r in site.relation %}
 * [{{ r.title  }}]({{ r.url | remove_first:'/'  }}): {{ r.shortdef  }}
 {% endfor %}
 
