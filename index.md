@@ -39,6 +39,9 @@ Entity annotations are made by selecting spans of text with the cursor. Once sel
 
 A brief introduction to the brat interface may be found [here](http://brat.nlplab.org/manual.html).
 
+## Annotations
+
+The following is a very clean example of the kind of text spans we are looking for:
 
 ~~~ ann
 H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma )
@@ -47,6 +50,67 @@ T2 MeasuredValue 12 54 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
 T3 ConfidenceLimit 55 67 ( 1 \sigma )
 R1 Measurement Arg1:T1 Arg2:T2
 R2 Confidence Arg1:T2 Arg2:T3
+~~~
+
+Most examples will not be this neat, but many will follow this general pattern. For example:
+
+~~~ ann
+Hubble constant H _ { \lower 2.0 pt \hbox { $ \scriptstyle 0 $ } } = 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 }
+T1 ParameterName 0 15 Hubble constant
+T2 ParameterSymbol 16 66 H _ { \lower 2.0 pt \hbox { $ \scriptstyle 0 $ } }
+T3 MeasuredValue 69 156 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 }
+R1 Name Arg1:T1 Arg2:T2
+R2 Measurement Arg1:T2 Arg2:T3
+~~~
+
+Follows the same basic pattern, but with TeX structs taking up much more space.
+
+~~~ ann
+the determination of the equation-of-state parameter of dark energy , w = P / ( \rho c ^ { 2 } )
+T1 ParameterName 25 67 equation-of-state parameter of dark energy
+T2 ParameterSymbol 70 71 w
+T3 Definition 74 96 P / ( \rho c ^ { 2 } )
+R1 Name Arg1:T1 Arg2:T2
+R2 Defined Arg1:T2 Arg2:T3
+~~~
+
+~~~ ann
+The mass ratio of non–baryonic dark matter to baryonic matter is 3.1 ^ { +2.5 } _ { -2.4 }
+T1 ParameterName 1 2 mass ratio of non–baryonic dark matter to baryonic matter
+T2 MeasuredValue 3 4 3.1 ^ { +2.5 } _ { -2.4 }
+R1 Measurement Arg1:T1 Arg2:T2
+~~~
+
+~~~ ann
+this time-delay estimate yields a Hubble parameter of H _ { 0 } = 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } } ( 95 \% confidence level ) where the errors include time-delay as well as model uncertainties
+T1 ParameterName 34 50 Hubble parameter
+T2 ParameterSymbol 54 63 H _ { 0 }
+T3 MeasuredValue 66 145 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } }
+T4 ConfidenceLimit 148 153 95 \%
+R1 Name Arg1:T1 Arg2:T2
+R2 Measurement Arg1:T2 Arg2:T3
+R3 Confidence Arg1:T3 Arg2:T4
+~~~
+
+~~~ ann
+D _ { A } ( z ) is the angular diameter distance and H ( z ) is the Hubble parameter 
+T1 ParameterSymbol 0 15 D _ { A } ( z )
+T2 ParameterName 23 48 angular diameter distance
+T3 ParameterSymbol 53 60 H ( z )
+T4 ParameterName 68 84 Hubble parameter
+R1 Name Arg1:T1 Arg2:T2
+R2 Name Arg1:T3 Arg2:T4
+~~~
+
+Ambiguous - should the z = 0.275 be included in the ParameterName or as a separate Details?
+
+~~~ ann
+We achieve a distance measure at redshift z = 0.275 , of r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 ) = 0.1390 \pm 0.0037 ( 2.7 % accuracy )
+T1 ParameterName 13 29 distance measure
+T2 ParameterSymbol 57 102 r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 )
+T3 MeasuredValue 105 122 0.1390 \pm 0.0037
+R1 Name Arg1:T1 Arg2:T2
+R2 Measurement Arg1:T2 Arg2:T3
 ~~~
 
 ~~~ ann
@@ -74,11 +138,3 @@ A full list of the annotation relations is given below:
 {% for r in site.relation %}
 * [{{ r.title  }}]({{ r.url | remove_first:'/'  }}): {{ r.shortdef  }}
 {% endfor %}
-
-
-
-
-~~~ ann
-Barack Obama is the current president.
-T1 PERSON 0 12 Barack Obama
-~~~
