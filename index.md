@@ -41,6 +41,28 @@ A brief introduction to the brat interface may be found [here](http://brat.nlpla
 
 ## Annotations
 
+Need:
+What qualifies as an entity?
+	Named property (too specific?)
+Good examples
+	Symbol measurement
+	Name+symbol measurement
+	Constraint
+	Name to symbol only
+Bad examples
+	Messy TeX span
+	Confusing details case
+	Cases to ignore
+Edge cases
+	Definition
+	Details
+Special annotations you wouldn't think of
+	Link name to symbol over long distance
+	Always try and link symbol to name at least once, if available
+Don't annotate hyper-specific examples
+	Percentages relating to specific catalogue/sample
+	Details regarding specific catalogue/sample
+
 The following is a very clean example of the kind of text spans we are looking for:
 
 ~~~ ann
@@ -63,7 +85,7 @@ R1 Name Arg1:T1 Arg2:T2
 R2 Measurement Arg1:T2 Arg2:T3
 ~~~
 
-Follows the same basic pattern, but with TeX structs taking up much more space.
+This follows the same basic pattern, but with TeX structs taking up much more space.
 
 ~~~ ann
 the determination of the equation-of-state parameter of dark energy , w = P / ( \rho c ^ { 2 } )
@@ -76,8 +98,8 @@ R2 Defined Arg1:T2 Arg2:T3
 
 ~~~ ann
 The mass ratio of non–baryonic dark matter to baryonic matter is 3.1 ^ { +2.5 } _ { -2.4 }
-T1 ParameterName 1 2 mass ratio of non–baryonic dark matter to baryonic matter
-T2 MeasuredValue 3 4 3.1 ^ { +2.5 } _ { -2.4 }
+T1 ParameterName 4 61 mass ratio of non–baryonic dark matter to baryonic matter
+T2 MeasuredValue 65 90 3.1 ^ { +2.5 } _ { -2.4 }
 R1 Measurement Arg1:T1 Arg2:T2
 ~~~
 
