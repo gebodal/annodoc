@@ -41,6 +41,83 @@ An introduction to the brat interface may be found [here](http://brat.nlplab.org
 
 ## Annotations
 
+The primary goal of this project is to link numerical measurements to physical entities in free text, and as such this is the backbone of our annotation process. Numerical measurements are relatively easy to identify in free text, and here are classified into two forms: `measured values`, and `constraints`. Physical entities are a little more complex in the ways they may be represented in text. Here we annotate them using three primary labels: `Parameter Name`, `Parameter Symbol`, and `Object Name`. These different annotation labels are discussed below:
+
+### Measured Value
+
+An example of a `measured value` would be:
+
+EXAMPLE
+
+When annotating a measured value, please include the central value, along with any uncertainties and units that may be given. Measured values in a scientific context should have at least one uncertainty associated with them, but it is possible that this uncertainty may be given somewhere else in the text. HOW TO DEAL WITH THIS? If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
+
+EXAMPLE
+
+### Constraint
+
+And an example of a `constraint` would be:
+
+EXAMPLE
+
+When annotating a constraint, please include the value and any associated units, the equality operator (`<`, `>`, `\gt`, `\lt`, `\geq`, etc.), and the mathematical symbol being used in the expression, if present. It is possible that some of these components may not be present in the constraint, as in the following example:
+
+~~~ ann
+Allowing the inclination to be a free parameter we find a lower limit for the spin of 0.90 , this value increases to that of a maximal rotating black hole when the inclination is set to that of the orbital plane of J1655-40 .
+~~~
+
+In this case, HOW TO DEAL WITH THIS.
+
+### Physical Entities
+
+A physical entity here is considered to be a property (either of the Universe or a specific object) which may be measured in some way to produce a numerical result. For instance, we may measure the Hubble Constant (property of the Universe), or the radius of the Milky Way Galaxy.
+
+#### Parameter Name
+
+Property names are identified using the `Parameter Name` annotation. This annotation is specifically for written (i.e. linguistic) names of physical entities. For example in the following sentence:
+
+EXAMPLE
+
+note that the written name has a separate annotation to the mathematical symbol. The two should be linked by the annotator, however, as discussed below in the RELATIONS SECTION.
+
+Parameter names can become complicated due to being dependant on other parts of the text (for instance, when the word "radius" is used as a parameter name, what is it the radius of?). This is discussed below in the section on SECTION NAME.
+
+Please annotate all instances of Parameter Names that you encounter - even if they are not directly tied to a mathematical symbol or measurement. For instance, in the following sentence:
+
+EXAMPLE
+
+the annotation is helpful, as it aids the entity recoginition phase of our model training.
+
+#### Parameter Symbol
+
+Mathematical symbols are annotated separately to the written names of physical entities. When a mathematical symbol appears next to a written name, please ensure that you give separate labels for each, as in the following example:
+
+EXAMPLE
+
+Note that due to our text being derived from LaTeX source files, there may be some fairly convoluted TeX syntax within the spans for mathematical symbols. Please take the time to properly determine the start and end of these symbols, as this will be very helpful for training our future models.
+
+As for Parameter Names, please annotate all instances of Parameter Symbols you encounter, even if they appear independently of any measurements or Parameter Names. A caveat to this is in the case of equations: a separate annotation, `Definition`, exists for this situation. See REFERENCE TO DEFINITION. 
+
+#### Object Name
+
+Global properties (e.g. Hubble constant) may usually be identified in free text by their name (or symbol, if a recognisable one exists) alone, but this is often not the case for properties of objects. For example, consider the following sentence:
+
+EXAMPLE
+
+Here we have no indication of what object PROPERTY relates to. In cases such as this, however, the object is generally referenced somewhere else in the text, and we use the `Object Name` annotation to identify this object. We may then link the Object Name to the Parameter Name or Parameter Symbol annotation (preferring the written name if available) using the Property relation as described in REFERENCE.
+
+In the case where the object and property appear in the same sentence, please annotate the Object Name and Property Name separately, as in the following examples:
+
+EXAMPLE WHERE OBJECT AND PARAMETER ARE NEXT TO EACH OTHER
+
+EXAMPLE WHERE OBJECT AND PARAMETER ARE SEPARATED IN SAME SENTENCE
+
+Please annotate all instances of Object Names that you encounter, even if they are not directly linked to properties or measurements, as this aids our entity recognition models.
+
+### Relations
+
+Always prefer to link Object-Name-Symbol-Measurement, if available.
+
+
 Need:
 What qualifies as an entity?
 	Named property (too specific?)
