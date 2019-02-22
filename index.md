@@ -31,13 +31,13 @@ The brat rapid annotation tool ([brat](http://brat.nlplab.org/)) allows for anno
 
 A link and login to our brat server will be emailed to you when you sign up to help with this project. Please get in touch if these do not work. Once you have logged in, you should see the brat interface.
 
-<img style="width:100%" src="http://brat.nlplab.org/img/collection-browser-1.png">
+<img style="width:60%" src="http://brat.nlplab.org/img/collection-browser-1.png">
 
 From here, navigate to your annotation directory, select a paper, and you may begin annotating.
 
 Entity annotations are made by selecting spans of text with the cursor. Once selected, a window will appear allowing you to select the appropriate entity label, and any necessary attributes for the annotation. Relation annotations are made by clicking-and-dragging from one annotation to another. If an potential relation exists between the start and end annotations (and do note that some annotations are directional) a window will appear asking you to confirm the relation type. Note that once the appropriate entity/relation label has been selected in these windows, the selection may be confirmed by pressing the Enter key.
 
-A brief introduction to the brat interface may be found [here](http://brat.nlplab.org/manual.html).
+An introduction to the brat interface may be found [here](http://brat.nlplab.org/manual.html).
 
 ## Annotations
 
@@ -62,6 +62,19 @@ Special annotations you wouldn't think of
 Don't annotate hyper-specific examples
 	Percentages relating to specific catalogue/sample
 	Details regarding specific catalogue/sample
+Important
+	Please link names and symbols even if they do not occur with a numerical measurement
+	In cases where an parameter/object is mentioned multiple times, please try and make links between linguistically significant pairs
+
+How to deal with constraints expressed in words?
+
+~~~ ann
+Allowing the inclination to be a free parameter we find a lower limit for the spin of 0.90 , this value increases to that of a maximal rotating black hole when the inclination is set to that of the orbital plane of J1655-40 .
+~~~
+
+Complicated examples:
+* 0803.0551
+* 0905.3401
 
 The following is a very clean example of the kind of text spans we are looking for:
 
@@ -94,6 +107,10 @@ T2 ParameterSymbol 70 71 w
 T3 Definition 74 96 P / ( \rho c ^ { 2 } )
 R1 Name Arg1:T1 Arg2:T2
 R2 Defined Arg1:T2 Arg2:T3
+~~~
+
+~~~ ann
+We found that 13 nights of V5116 Sgr observations in the year 2006 are modulated with a period of 0.1238 \pm 0.0001 d ( 2.9712 \pm 0.0024 h )
 ~~~
 
 ~~~ ann
