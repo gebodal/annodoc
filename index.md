@@ -9,6 +9,7 @@ Welcome to the Numerical Atlas annotation project documentation. The following s
 
 * [Project Goal](#project-goal)
 
+
 # Project Goal
 
 The goal of this project is to produce a tool to automatically extract measurements from the astrophysical literature. 'Measurement' in this context refers to a numerical value associated with a named entity. We hope to be able to extract and record the names, symbols, measured values, uncertainties, units, and confidence limits of measurements present in the text of astrophysics papers.
@@ -121,7 +122,7 @@ An additional detail included with many measurements is the confidence limit of 
 
 EXAMPLE
 
-In such cases, please annotate the confidence limit value and any necessary "unit" (e.g. "\sigma" or "%"), but leaving off any additional text (e.g. "confidence limit" or "C.L."). For example:
+In such cases, please annotate the confidence limit value and any necessary "unit" (e.g. "\sigma" or "%"), but leave off any additional text (e.g. "confidence limit" or "C.L."), as in:
 
 EXAMPLE SHOWING NOT TO INCLUDE "C.L."
 
