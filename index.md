@@ -10,7 +10,7 @@ Welcome to the Numerical Atlas annotation project documentation. The following s
 * [Project Goal](#project-goal)
 
 
-# Project Goal
+## Project Goal
 
 The goal of this project is to produce a tool to automatically extract measurements from the astrophysical literature. 'Measurement' in this context refers to a numerical value associated with a named entity. We hope to be able to extract and record the names, symbols, measured values, uncertainties, units, and confidence limits of measurements present in the text of astrophysics papers.
 
@@ -18,7 +18,7 @@ Our initial work towards this may be found [here](https://arxiv.org/abs/1902.000
 
 To move further with the project we now require a corpus of annotated examples to use as training data for future models. That is where you come in. This documentation will help explain the basics of annotating abstracts of astrophysical papers using brat and the annotation schema we have created.
 
-## Glossary
+### Glossary
 
 A brief glossary to help you with the natural language processing (NLP) terminology:
 
@@ -26,7 +26,7 @@ A brief glossary to help you with the natural language processing (NLP) terminol
 * Relation:
 * Attribute:
 
-# brat
+## brat
 
 The brat rapid annotation tool ([brat](http://brat.nlplab.org/)) allows for annotators to create and edit annotations from a browser. Google Chrome and Safari (desktop) are the only fully suppported browsers (Firefox has visualization support, but only partial editing support, and is not recommended).
 
@@ -40,11 +40,11 @@ Entity annotations are made by selecting spans of text with the cursor. Once sel
 
 An introduction to the brat interface may be found [here](http://brat.nlplab.org/manual.html).
 
-# Annotations
+## Annotations
 
 The primary goal of this project is to link numerical measurements to physical entities in free text, and as such this is the backbone of our annotation process. Numerical measurements are relatively easy to identify in free text, and here are classified into two forms: `measured values`, and `constraints`. Physical entities are a little more complex in the ways they may be represented in text. Here we annotate them using three primary labels: `Parameter Name`, `Parameter Symbol`, and `Object Name`. These different annotation labels are discussed below:
 
-## Measured Value
+### Measured Value
 
 An example of a `measured value` would be:
 
@@ -54,7 +54,7 @@ When annotating a measured value, please include the central value, along with a
 
 EXAMPLE
 
-## Constraint
+### Constraint
 
 And an example of a `constraint` would be:
 
@@ -68,11 +68,11 @@ Allowing the inclination to be a free parameter we find a lower limit for the sp
 
 In this case, HOW TO DEAL WITH THIS.
 
-## Physical Entities
+### Physical Entities
 
 A physical entity here is considered to be a property (either of the Universe or a specific object) which may be measured in some way to produce a numerical result. For instance, we may measure the Hubble Constant (property of the Universe), or the radius of the Milky Way Galaxy.
 
-### Parameter Name
+#### Parameter Name
 
 Property names are identified using the `Parameter Name` annotation. This annotation is specifically for written (i.e. linguistic) names of physical entities. For example in the following sentence:
 
@@ -88,7 +88,7 @@ EXAMPLE
 
 the annotation is helpful, as it aids the entity recoginition phase of our model training.
 
-### Parameter Symbol
+#### Parameter Symbol
 
 Mathematical symbols are annotated separately to the written names of physical entities. When a mathematical symbol appears next to a written name, please ensure that you give separate labels for each, as in the following example:
 
@@ -98,7 +98,7 @@ Note that due to our text being derived from LaTeX source files, there may be so
 
 As for Parameter Names, please annotate all instances of Parameter Symbols you encounter, even if they appear independently of any measurements or Parameter Names. A caveat to this is in the case of equations: a separate annotation, `Definition`, exists for this situation. See REFERENCE TO DEFINITION. 
 
-### Object Name
+#### Object Name
 
 Global properties (e.g. Hubble constant) may usually be identified in free text by their name (or symbol, if a recognisable one exists) alone, but this is often not the case for properties of objects. For example, consider the following sentence:
 
@@ -114,9 +114,9 @@ EXAMPLE WHERE OBJECT AND PARAMETER ARE SEPARATED IN SAME SENTENCE
 
 Please annotate all instances of Object Names that you encounter, even if they are not directly linked to properties or measurements, as this aids our entity recognition models.
 
-## Additional Annotations
+### Additional Annotations
 
-### Confidence Limit
+#### Confidence Limit
 
 An additional detail included with many measurements is the confidence limit of the stated uncertainties, as in the following example:
 
@@ -128,22 +128,22 @@ EXAMPLE SHOWING NOT TO INCLUDE "C.L."
 
 This annotation may then be linked to a measurement annotation using the `Confidence` relation, as discussed REFERENCE.
 
-### Definition
+#### Definition
 
-## Relations
+### Relations
 
 Always prefer to link Object-Name-Symbol-Measurement, if available.
 
 
-### Measurement
-### Confidence
-### Condition
-### Name
+#### Measurement
+#### Confidence
+#### Condition
+#### Name
 Bi-directional
-### Property
-### Source
-### Method
-### Defined
+#### Property
+#### Source
+#### Method
+#### Defined
 
 
 
@@ -270,7 +270,7 @@ R2 Confidence Arg1:T2 Arg2:T3
 R3 Measurement Arg1:T4 Arg2:T5
 ~~~
 
-# Annotation Entities and Relations
+## Annotation Entities and Relations
 
 A full list of the available annotation entities is given below:
 
