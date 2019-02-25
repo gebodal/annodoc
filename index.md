@@ -66,6 +66,8 @@ When annotating a constraint, please include the value and any associated units,
 Allowing the inclination to be a free parameter we find a lower limit for the spin of 0.90 , this value increases to that of a maximal rotating black hole when the inclination is set to that of the orbital plane of J1655-40 .
 ~~~
 
+<span style="float:right;font-size:75%;opacity:0.5">(Not seeing a visualization above? See <a href="#project-goal">Project Goal</a>)</span>
+
 In this case, HOW TO DEAL WITH THIS.
 
 ### Physical Entities
@@ -129,6 +131,14 @@ EXAMPLE SHOWING NOT TO INCLUDE "C.L."
 This annotation may then be linked to a measurement annotation using the `Confidence` relation, as discussed REFERENCE.
 
 #### Definition
+
+It is beneficial to distinguish mathematical symbols appearing inside equations from those appearing as independant entities in a sentence. To this end, we also have a `Definition` annotation, which should be used to annotate equations of the form `SYMBOL = EXPRESSION`, as in:
+
+EXAMPLE
+
+If you encounter a mathematical expression outside of an equation (i.e. there is no equals sign present), determine if the expression qualifies as a physical quantity in its own right - for instance, is there a measurement of this quantity provided in the text? In such cases, annotate the expression as a ParameterSymbol, and associate it normally with any ParameterName, MeasuredValue, or Constraint annotations. An example of this would be:
+
+EXAMPLE
 
 ### Relations
 
