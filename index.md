@@ -42,9 +42,11 @@ An introduction to the brat interface may be found [here](http://brat.nlplab.org
 
 ## Annotations
 
-The primary goal of this project is to link numerical measurements to physical entities in free text, and as such this is the backbone of our annotation process. Numerical measurements are relatively easy to identify in free text, and here are classified into two forms: `measured values`, and `constraints`. Physical entities are a little more complex in the ways they may be represented in text. Here we annotate them using three primary labels: `Parameter Name`, `Parameter Symbol`, and `Object Name`. These different annotation labels are discussed below:
+### Entities
 
-### Measured Value
+The primary goal of this project is to link numerical measurements to physical entities in free text, and as such this is the backbone of our annotation process. Numerical measurements are relatively easy to identify in free text, and here are classified into two forms: `measured values`, and `constraints`. Physical entities are a little more complex in the ways they may be represented in text. Here we annotate them using three primary Entity labels: `Parameter Name`, `Parameter Symbol`, and `Object Name`. These different labels are discussed below:
+
+#### Measured Value
 
 An example of a `measured value` would be:
 
@@ -56,7 +58,7 @@ EXAMPLE
 
 A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed below in REFERENCE/
 
-### Constraint
+#### Constraint
 
 And an example of a `constraint` would be:
 
@@ -74,11 +76,11 @@ In this case, HOW TO DEAL WITH THIS.
 
 A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed below in REFERENCE/
 
-### Physical Entities
+#### Physical Entities
 
 A physical entity here is considered to be a property (either of the Universe or a specific object) which may be measured in some way to produce a numerical result. For instance, we may measure the Hubble Constant (property of the Universe), or the radius of the Milky Way Galaxy.
 
-#### Parameter Name
+##### Parameter Name
 
 Property names are identified using the `Parameter Name` annotation. This annotation is specifically for written (i.e. linguistic) names of physical entities. For example in the following sentence:
 
@@ -94,7 +96,7 @@ EXAMPLE
 
 the annotation is helpful, as it aids the entity recoginition phase of our model training.
 
-#### Parameter Symbol
+##### Parameter Symbol
 
 Mathematical symbols are annotated separately to the written names of physical entities. When a mathematical symbol appears next to a written name, please ensure that you give separate labels for each, as in the following example:
 
@@ -104,7 +106,7 @@ Note that due to our text being derived from LaTeX source files, there may be so
 
 As for Parameter Names, please annotate all instances of Parameter Symbols you encounter, even if they appear independently of any measurements or Parameter Names. A caveat to this is in the case of equations: a separate annotation, `Definition`, exists for this situation. See REFERENCE TO DEFINITION. 
 
-#### Object Name
+##### Object Name
 
 Global properties (e.g. Hubble constant) may usually be identified in free text by their name (or symbol, if a recognisable one exists) alone, but this is often not the case for properties of objects. For example, consider the following sentence:
 
@@ -120,7 +122,7 @@ EXAMPLE WHERE OBJECT AND PARAMETER ARE SEPARATED IN SAME SENTENCE
 
 Please annotate all instances of Object Names that you encounter, even if they are not directly linked to properties or measurements, as this aids our entity recognition models.
 
-### Confidence Limit
+#### Confidence Limit
 
 An additional detail included with many measurements is the confidence limit of the stated uncertainties, as in the following example:
 
@@ -132,7 +134,7 @@ EXAMPLE SHOWING NOT TO INCLUDE "C.L."
 
 This annotation may then be linked to a measurement annotation using the `Confidence` relation, as discussed REFERENCE.
 
-### Definition
+#### Definition
 
 It is beneficial to distinguish mathematical symbols appearing inside equations from those appearing as independant entities in a sentence. To this end, we also have a `Definition` annotation, which should be used to annotate equations of the form `SYMBOL = EXPRESSION`, as in:
 
@@ -160,6 +162,8 @@ An example of a standard Measurement relation would be:
 
 EXAMPLE
 
+It is possible that a given ParameterName or ParameterSymbol may have multiple measurement values associated with it. In which case simple create multiple relations from a single ParameterName/ParameterSymbol.s
+
 #### Name
 
 A `Name` relation is between a ParameterName and a ParameterSymbol, and is used to indicate that the given ParameterName is the linguistic name of the ParameterSymbol. For instance, the phrase "Hubble constant" is the linguistic name (ParameterName) for the symbol "H\_0" (ParameterSymbol).
@@ -172,6 +176,8 @@ EXAMPLE
 
 Any "missing" relations may be easily reconstructed automatically, and the resulting markup in the brat interface much more readable.
 
+However, if the only name/symbol pair in the text is greatly separated, please do annotate this - we require at least one relation between the spans in a given document.
+
 #### Property
 
 A `Property` relation is between an Object and a ParameterName or ParameterSymbol, and is used to indicate that the name or symbol is given as a property of the annotated object. For example:
@@ -182,37 +188,51 @@ Please include these relations wherever possible, as they are prone to linguisti
 
 #### Confidence
 
-A `Confidence` relation is between a MeasuredValue or Constraint and a ConfidenceLimit, and is used to relate a measurement with a stated confidence. Note that in many cases a single confidence 
+A `Confidence` relation is between a MeasuredValue or Constraint and a ConfidenceLimit, and is used to relate a measurement with a stated confidence. Note that in many cases a single confidence annotation may be used for several measurements. In which case, simply link the multiple measurements to the single annotation - this is perfectly acceptable in the brat interface.
 
-#### Condition
+As an example:
 
+EXAMPLE
 
+#### Defined
 
-### Relations
+A `Defined` relation is between a ParameterName or ParameterSymbol and a Definition, and is used to indicate that the physical entity in question is defined by the mathematical expression in the Definition. An example of this would be:
+
+EXAMPLE
+
+### Attributes
+
+An attribute is a label associated with an entity annotation. This is used to provide additional information about that annotation - for example, information implied by the context, but not actually included in the span itself.
+
+An attribute may be added to an annotation when the annotation is created, or by double clicking on an existing annotation. At the bottom of the window which appears in these cases will be a list of available attributes for the annotation - simply click on the attribute name to toggle it on/off. Multiple attributes may be placed on the same annotation. Note that attributes are entity-type specific, and so it is possible that no options for attributes may appear for a given entity type.
+
+PICTURE
+
+For this project, only MeasuredValue and Constraint entities have available attributes. These are detailed below.
+
+#### FromLiterature
+
+The `FromLiterature` attribute is used to indicate that a given MeasuredValue or Constraint is a quoted value from the scientific literature (either from a specific, named source, or merely an accepted value in the community). Such values are usually clearly declared as such in the text.
 
 #### Incorrect
+
+The `Incorrect` attribute is used to indicate that the measurement annotation has been deemed incorrect by the authors of the paper. Usually this will be for a quoted value, where the authors are referencing a value from literature which their work disagrees with (they may have a competing value of their own given in the text). However, it is also possible that the authors provide their own determination of a given quantity, and note its disagreement with the literature value, and conclude that there is some underlying problem in their assumptions or technique - whilst rare, this can occur (REFERENCE HIGH H\_0 VALUE PAPER).
+
 #### AcceptedValue
-#### FromLiterature
+
+The `AcceptedValue` attribute is used to indicate that a given measurement is presented as the correct one - this is useful in cases where there are multiple determinations of a given quantity presented by the authors. If one measurement is indicated as being the accepted/final value, please add this attribute.
+
+## Notes
+
 
 
 Need:
-What qualifies as an entity?
-	Named property (too specific?)
-Good examples
-	Symbol measurement
-	Name+symbol measurement
-	Constraint
-	Name to symbol only
 Bad examples
 	Messy TeX span
 	Confusing details case
 	Cases to ignore
 Edge cases
-	Definition
 	Details
-Special annotations you wouldn't think of
-	Link name to symbol over long distance
-	Always try and link symbol to name at least once, if available
 Don't annotate hyper-specific examples
 	Percentages relating to specific catalogue/sample
 	Details regarding specific catalogue/sample
@@ -221,11 +241,6 @@ Important
 	In cases where an parameter/object is mentioned multiple times, please try and make links between linguistically significant pairs
 When not to annotate an abstract
 
-How to deal with constraints expressed in words?
-
-~~~ ann
-Allowing the inclination to be a free parameter we find a lower limit for the spin of 0.90 , this value increases to that of a maximal rotating black hole when the inclination is set to that of the orbital plane of J1655-40 .
-~~~
 
 ~~~ ann
 The half-light radii and ellipticities of the GCs in our sample \( \bar \{ r \_ \{ h \} \} \simeq 3.3 pc , \overline \{ \epsilon \} \simeq 0.1 \) are similar to those of old GCs in the Magellanic Clouds and to those of “ Old Halo ” \( OH \) GCs in our Galaxy , but not as extended and spherical as the Galactic “ Young Halo ” \( YH \) GCs \( \bar \{ r \_ \{ h \} \} \simeq 7.7 pc , \overline \{ \epsilon \} \simeq 0.06 \) .
