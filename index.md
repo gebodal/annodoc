@@ -111,11 +111,11 @@ Property names are identified using the `Parameter Name` annotation. This annota
 ~~~ ann
 ...this time-delay estimate yields a Hubble parameter of H _ { 0 } = 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } } ( 95 \% confidence level ) where...
 T1 ParameterName 37 53 Hubble parameter
-T2 ParameterSymbol 58 66 H _ { 0 } 
+T2 ParameterSymbol 57 66 H _ { 0 } 
 T3 MeasuredValue 69 147 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } }
 T4 ConfidenceLimit 150 155 95 \%
 R1 Name Arg1:T1 Arg2:T2
-R2 Measurement Arg1:T2 Arg2: T3
+R2 Measurement Arg1:T2 Arg2:T3
 R3 Confidence Arg1:T3 Arg2:T4
 ~~~
 astro-ph0007136
@@ -187,15 +187,35 @@ EXAMPLE WHERE OBJECT AND PARAMETER ARE SEPARATED IN SAME SENTENCE
 
 Please annotate all instances of Object Names that you encounter, even if they are not directly linked to properties or measurements, as this aids our entity recognition models.
 
+~~~ ann
+This nuclear GC has luminosity , color , and structural parameters similar to that of \omega Cen and M 54...
+T1 Object 86 96 \omega Cen
+T2 Object 101 105 M 54
+~~~
+
 #### Confidence Limit
 
 An additional detail included with many measurements is the confidence limit of the stated uncertainties, as in the following example:
 
-EXAMPLE
+~~~ ann
+H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma )
+T1 ParameterSymbol 0 9 H _ { 0 }
+T2 MeasuredValue 12 54 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
+T3 ConfidenceLimit 55 67 ( 1 \sigma )
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Confidence Arg1:T2 Arg2:T3
+~~~
+0709.2195
 
 In such cases, please annotate the confidence limit value and any necessary "unit" (e.g. "\sigma" or "%"), but leave off any additional text (e.g. "confidence limit" or "C.L."), as in:
 
-EXAMPLE SHOWING NOT TO INCLUDE "C.L."
+~~~ ann
+The new limit on the tensor-to-scalar ratio is r < 0.22 \mbox { ( 95 \% CL ) }
+T1 ParameterName 21 43 tensor-to-scalar ratio
+T2 Constraint 47 55 r < 0.22
+T3 ConfidenceLimit 66 71 95 \%
+~~~
+0803.0732
 
 This annotation may then be linked to a measurement annotation using the `Confidence` relation, as discussed [here](#confidence).
 
@@ -203,15 +223,26 @@ This annotation may then be linked to a measurement annotation using the `Confid
 
 It is beneficial to distinguish mathematical symbols appearing inside equations from those appearing as independant entities in a sentence. To this end, we also have a `Definition` annotation, which should be used to annotate equations of the form `SYMBOL = EXPRESSION`, as in:
 
-EXAMPLE
+~~~ ann
+...mass density parameter \Omega _ { M } = 1 - \Omega _ { \Lambda }...
+T1 ParameterName 3 25 mass density parameter
+T2 ParameterSymbol 26 40 \Omega _ { M }
+T3 Definition 43 67 1 - \Omega _ { \Lambda }
+R1 Name Arg1:T1 Arg2:T2
+R2 Defined Arg1:T2 Arg2:T3
+~~~
+0709.2195
 
 If you encounter a mathematical expression outside of an equation (i.e. there is no equals sign present), determine if the expression qualifies as a physical quantity in its own right - for instance, is there a measurement of this quantity provided in the text? In such cases, annotate the expression as a ParameterSymbol, and associate it normally with any ParameterName, MeasuredValue, or Constraint annotations. An example of this would be:
 
-EXAMPLE
+~~~ ann
+\Omega _ { b } h ^ { 2 } = 0.034 ^ { +0.007 } _ { -0.007 }
+T1 ParameterName 0 24 \Omega _ { b } h ^ { 2 }
+T2 MeasuredValue 27 58 0.034 ^ { +0.007 } _ { -0.007 }
+~~~
+astro-ph0212497
 
 ### Relations
-
-Always prefer to link Object-Name-Symbol-Measurement, if available.
 
 In addition to identifying spans of text which correspond to certain entities (names, symbols, numbers, etc.), we are also interested in the relationships between these entities - hence we define "Relations" between entities. Practically, these relations are created by clicking-and-dragging from one entity annotation to another. A window will appear in the brat interface allowing you to specify which type of relation you wish to create between the two entities. Note that the interface will only present the possible relations which may exist between the two entities, as each relation has defined start and end types.
 
@@ -225,9 +256,17 @@ A `Measurement` relation starts at a ParameterName or ParameterSymbol, and ends 
 
 An example of a standard Measurement relation would be:
 
-EXAMPLE
+~~~ ann
+H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma )
+T1 ParameterSymbol 0 9 H _ { 0 }
+T2 MeasuredValue 12 54 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
+T3 ConfidenceLimit 55 67 ( 1 \sigma )
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Confidence Arg1:T2 Arg2:T3
+~~~
+0709.2195
 
-It is possible that a given ParameterName or ParameterSymbol may have multiple measurement values associated with it. In which case simple create multiple relations from a single ParameterName/ParameterSymbol.s
+It is possible that a given ParameterName or ParameterSymbol may have multiple measurement values associated with it. In which case simple create multiple relations from a single ParameterName/ParameterSymbol.
 
 #### Name
 
@@ -237,7 +276,7 @@ It is very likely that many mathematical symbols will be given in the text witho
 
 You will also encounter situations in which a name and symbol appear together without a nearby measurement. In such cases there will often be a measurement of the physical entity given later in the text (probably using only the symbol). When this occurs, please ensure you create a relation between the name and symbol which appear together, but do not create a Name relation between the ParameterName at the start of the document and the ParameterSymbol at the end (provided that the symbol uses exactly the same text). For example:
 
-EXAMPLE
+EXAMPLE - NEEDS PICTURE
 
 Any "missing" relations may be easily reconstructed automatically, and the resulting markup in the brat interface much more readable.
 
@@ -247,7 +286,14 @@ However, if the only name/symbol pair in the text is greatly separated, please d
 
 A `Property` relation is between an Object and a ParameterName or ParameterSymbol, and is used to indicate that the name or symbol is given as a property of the annotated object. For example:
 
-EXAMPLE
+~~~ ann
+...we infer the spin parameter of SWIFT J1753.5-0127 to be 0.76 ^ { +0.11 } _ { -0.15 } .
+T1 ParameterName 16 30 spin parameter
+T2 Object 34 52 SWIFT J1753.5-0127
+T3 MeasuredValue 59 87 0.76 ^ { +0.11 } _ { -0.15 }
+R1 Property Arg1:T2 Arg2:T1
+R2 Measurement Arg1:T1 Arg2:T3
+~~~
 
 Please include these relations wherever possible, as they are prone to linguistic ambiguity - especially in the cases where there are multiple objects referenced in the same text.
 
@@ -257,13 +303,29 @@ A `Confidence` relation is between a MeasuredValue or Constraint and a Confidenc
 
 As an example:
 
-EXAMPLE
+~~~ ann
+H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma )
+T1 ParameterSymbol 0 9 H _ { 0 }
+T2 MeasuredValue 12 54 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
+T3 ConfidenceLimit 55 67 ( 1 \sigma )
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Confidence Arg1:T2 Arg2:T3
+~~~
+0709.2195
 
 #### Defined
 
 A `Defined` relation is between a ParameterName or ParameterSymbol and a Definition, and is used to indicate that the physical entity in question is defined by the mathematical expression in the Definition. An example of this would be:
 
-EXAMPLE
+~~~ ann
+...mass density parameter \Omega _ { M } = 1 - \Omega _ { \Lambda }...
+T1 ParameterName 3 25 mass density parameter
+T2 ParameterSymbol 26 40 \Omega _ { M }
+T3 Definition 43 67 1 - \Omega _ { \Lambda }
+R1 Name Arg1:T1 Arg2:T2
+R2 Defined Arg1:T2 Arg2:T3
+~~~
+0709.2195
 
 ### Attributes
 
