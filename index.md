@@ -12,11 +12,12 @@ Welcome to the Numerical Atlas annotation project documentation. The following s
 
 ## Project Goal
 
-The goal of this project is to produce a tool to automatically extract measurements from the astrophysical literature. 'Measurement' in this context refers to a numerical value associated with a named entity. We hope to be able to extract and record the names, symbols, measured values, uncertainties, units, and confidence limits of measurements present in the text of astrophysics papers.
+The goal of this project is to produce a tool to automatically extract measurements from the astrophysical literature. 'Measurement' in this context refers to a numerical value associated with a named entity - for example the "Hubble constant", or "the mass of Jupiter". We hope to be able to extract and record the names, symbols, measured values, uncertainties, units, and confidence limits of measurements present in the text of astrophysics papers.
 
+WE HAVE ALREADY WRITTEN A PAPER ON OUR BASELINE MODELS SUBMITTED TO ETC
 Our initial work towards this may be found [here](https://arxiv.org/abs/1902.00027).
 
-To move further with the project we now require a corpus of annotated examples to use as training data for future models. That is where you come in. This documentation will help explain the basics of annotating abstracts of astrophysical papers using brat and the annotation schema we have created.
+To move further with the project we now require a corpus of annotated examples to use as training data for future models TALK ABOUT DEEP LEARNING. That is where you will prove useful. This documentation will help explain the basics of annotating abstracts of astrophysical papers using brat and the annotation schema we have created.
 
 ### Glossary
 
@@ -28,7 +29,7 @@ A brief glossary to help you with the natural language processing (NLP) terminol
 
 ## brat
 
-The brat rapid annotation tool ([brat](http://brat.nlplab.org/)) allows for annotators to create and edit annotations from a browser. Google Chrome and Safari (desktop) are the only fully suppported browsers (Firefox has visualization support, but only partial editing support, and is not recommended).
+The brat rapid annotation tool ([brat](http://brat.nlplab.org/)) allows for annotators to create and edit annotations from a browser. Google Chrome and Safari (desktop) are the only fully suppported browsers (Firefox has visualization support, but only partial editing support, and is not recommended). Mobile browsers are not supported at all.
 
 A link and login to our brat server will be emailed to you when you sign up to help with this project. Please get in touch if these do not work. Once you have logged in, you should see the brat interface.
 
@@ -36,7 +37,7 @@ A link and login to our brat server will be emailed to you when you sign up to h
 
 From here, navigate to your annotation directory, select a paper, and you may begin annotating.
 
-Entity annotations are made by selecting spans of text with the cursor. Once selected, a window will appear allowing you to select the appropriate entity label, and any necessary attributes for the annotation. Relation annotations are made by clicking-and-dragging from one annotation to another. If an potential relation exists between the start and end annotations (and do note that some annotations are directional) a window will appear asking you to confirm the relation type. Note that once the appropriate entity/relation label has been selected in these windows, the selection may be confirmed by pressing the Enter key.
+Entity annotations are made by selecting spans of text with the cursor. Once selected, a window will appear allowing you to select the appropriate entity label, and any necessary attributes for the annotation. Relation annotations are made by clicking-and-dragging from one annotation to another. If a potential relation exists between the start and end annotations (and do note that some annotations are directional) a window will appear asking you to confirm the relation type. Note that once the appropriate entity/relation label has been selected in these windows, the selection may be confirmed by pressing the Enter key.
 
 An introduction to the brat interface may be found [here](http://brat.nlplab.org/manual.html).
 
@@ -62,7 +63,7 @@ R2 Confidence Arg1:T2 Arg2:T3
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
 </div>
 
-When annotating a measured value, please include the central value, along with any uncertainties and units that may be given. Measured values in a scientific context should have at least one uncertainty associated with them, but it is possible that this uncertainty may be given somewhere else in the text. HOW TO DEAL WITH THIS? If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
+When annotating a measured value, please include the central value, along with any uncertainties and units that may be given. Measured values in a scientific context should have at least one uncertainty associated with them, but it is possible that this uncertainty may be given somewhere else in the text. If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
 
 <div markdown="1">
 ~~~ ann
