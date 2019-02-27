@@ -69,7 +69,7 @@ When annotating a constraint, please include the value and any associated units,
 ~~~ ann
 Allowing the inclination to be a free parameter we find a lower limit for the spin of 0.90 , this value increases to that of a maximal rotating black hole when the inclination is set to that of the orbital plane of J1655-40 .
 ~~~
-
+0902.1745
 <span style="float:right;font-size:75%;opacity:0.5">(Not seeing a visualization above? See <a href="#project-goal">Project Goal</a>)</span>
 
 In this case, HOW TO DEAL WITH THIS.
@@ -261,6 +261,7 @@ T3 ConfidenceLimit 55 67 ( 1 \sigma )
 R1 Measurement Arg1:T1 Arg2:T2
 R2 Confidence Arg1:T2 Arg2:T3
 ~~~
+0709.2195
 
 Most examples will not be this neat, but many will follow this general pattern. For example:
 
@@ -272,6 +273,7 @@ T3 MeasuredValue 69 156 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox% { sec } ^
 R1 Name Arg1:T1 Arg2:T2
 R2 Measurement Arg1:T2 Arg2:T3
 ~~~
+0709.2535
 
 This follows the same basic pattern, but with TeX structs taking up much more space.
 
@@ -283,10 +285,12 @@ T3 Definition 74 96 P / ( \rho c ^ { 2 } )
 R1 Name Arg1:T1 Arg2:T2
 R2 Defined Arg1:T2 Arg2:T3
 ~~~
+0905.0695
 
 ~~~ ann
 We found that 13 nights of V5116 Sgr observations in the year 2006 are modulated with a period of 0.1238 \pm 0.0001 d ( 2.9712 \pm 0.0024 h )
 ~~~
+0710.5701
 
 ~~~ ann
 The mass ratio of non–baryonic dark matter to baryonic matter is 3.1 ^ { +2.5 } _ { -2.4 }
@@ -294,6 +298,7 @@ T1 ParameterName 4 61 mass ratio of non–baryonic dark matter to baryonic matte
 T2 MeasuredValue 65 90 3.1 ^ { +2.5 } _ { -2.4 }
 R1 Measurement Arg1:T1 Arg2:T2
 ~~~
+0709.2535
 
 ~~~ ann
 this time-delay estimate yields a Hubble parameter of H _ { 0 } = 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } } ( 95 \% confidence level ) where the errors include time-delay as well as model uncertainties
@@ -305,6 +310,7 @@ R1 Name Arg1:T1 Arg2:T2
 R2 Measurement Arg1:T2 Arg2:T3
 R3 Confidence Arg1:T3 Arg2:T4
 ~~~
+astro-ph/0007136
 
 ~~~ ann
 D _ { A } ( z ) is the angular diameter distance and H ( z ) is the Hubble parameter 
@@ -315,6 +321,12 @@ T4 ParameterName 68 84 Hubble parameter
 R1 Name Arg1:T1 Arg2:T2
 R2 Name Arg1:T3 Arg2:T4
 ~~~
+0907.1660
+
+~~~ ann
+\sigma _ { 8 } \Omega _ { m } ^ { 0.6 } = 0.54 ( 0.40 , 0.73 )
+~~~
+astro-ph/0006170
 
 Ambiguous - should the z = 0.275 be included in the ParameterName or as a separate Details?
 
@@ -326,6 +338,7 @@ T3 MeasuredValue 105 122 0.1390 \pm 0.0037
 R1 Name Arg1:T1 Arg2:T2
 R2 Measurement Arg1:T2 Arg2:T3
 ~~~
+0907.1660
 
 ~~~ ann
 In the framework of the \Lambda CDM model our joint analysis yields a value of H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma ) with the best fit density parameter \Omega _ { M } = 0.27 \pm 0.03 .
@@ -338,6 +351,7 @@ R1 Measurement Arg1:T1 Arg2:T2
 R2 Confidence Arg1:T2 Arg2:T3
 R3 Measurement Arg1:T4 Arg2:T5
 ~~~
+0709.2195
 
 ## Annotation Entities and Relations
 
