@@ -90,11 +90,12 @@ R1 Confidence Arg1:T1 Arg2:T2
 
 When annotating a constraint, please include the value and any associated units, the equality operator (`<`, `>`, `\gt`, `\lt`, `\geq`, etc.), and the mathematical symbol being used in the expression, if present. It is possible that some of these components may not be present in the constraint, as in the following example:
 
+<div markdown="1">
 ~~~ ann
 Allowing the inclination to be a free parameter we find a lower limit for the spin of 0.90 , this value increases to that of a maximal rotating black hole when the inclination is set to that of the orbital plane of J1655-40 .
 ~~~
-0902.1745
-<span style="float:right;font-size:75%;opacity:0.5">(Not seeing a visualization above? See <a href="#project-goal">Project Goal</a>)</span>
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0902.1745">arXiv</a>)</span>
+</div>
 
 In this case, HOW TO DEAL WITH THIS.
 
