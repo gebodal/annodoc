@@ -54,6 +54,8 @@ When annotating a measured value, please include the central value, along with a
 
 EXAMPLE
 
+A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed below in REFERENCE/
+
 ### Constraint
 
 And an example of a `constraint` would be:
@@ -69,6 +71,8 @@ Allowing the inclination to be a free parameter we find a lower limit for the sp
 <span style="float:right;font-size:75%;opacity:0.5">(Not seeing a visualization above? See <a href="#project-goal">Project Goal</a>)</span>
 
 In this case, HOW TO DEAL WITH THIS.
+
+A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed below in REFERENCE/
 
 ### Physical Entities
 
@@ -116,9 +120,7 @@ EXAMPLE WHERE OBJECT AND PARAMETER ARE SEPARATED IN SAME SENTENCE
 
 Please annotate all instances of Object Names that you encounter, even if they are not directly linked to properties or measurements, as this aids our entity recognition models.
 
-### Additional Annotations
-
-#### Confidence Limit
+### Confidence Limit
 
 An additional detail included with many measurements is the confidence limit of the stated uncertainties, as in the following example:
 
@@ -130,7 +132,7 @@ EXAMPLE SHOWING NOT TO INCLUDE "C.L."
 
 This annotation may then be linked to a measurement annotation using the `Confidence` relation, as discussed REFERENCE.
 
-#### Definition
+### Definition
 
 It is beneficial to distinguish mathematical symbols appearing inside equations from those appearing as independant entities in a sentence. To this end, we also have a `Definition` annotation, which should be used to annotate equations of the form `SYMBOL = EXPRESSION`, as in:
 
@@ -144,16 +146,29 @@ EXAMPLE
 
 Always prefer to link Object-Name-Symbol-Measurement, if available.
 
+In addition to identifying spans of text which correspond to certain entities (names, symbols, numbers, etc.), we are also interested in the relationships between these entities - hence we define "Relations" between entities. Practically, these relations are created by clicking-and-dragging from one entity annotation to another. A window will appear in the brat interface allowing you to specify which type of relation you wish to create between the two entities. Note that the interface will only present the possible relations which may exist between the two entities, as each relation has defined start and end types.
+
+In all cases, the ideal annotation format would be of the form: Object → ParameterName → ParameterSymbol → Measurement (MeasuredValue or Constraint) → ConfidenceLimit.
+
+The available relations are discussed in the following sections.
 
 #### Measurement
+
+A `Measurement` relation starts at a ParameterName or ParameterSymbol, and ends at a MeasuredValue or Constraint. This relation indicates that the MeasuredValue or Constraint is a stated measurement of the physical entity denoted by the ParameterName/ParameterSymbol. Ideally, all MeasuredValue and Constraint annotations should have an associated Measurement relation, but there are edge cases where it is very difficult to identify an appropriate ParameterName or ParameterSymbol. In such cases, please annotate as fully as possible.
+
+An example of a standard Measurement relation would be:
+
+EXAMPLE
+
+#### Name
+
+A `Name` relation is between a ParameterName and a ParameterSymbol, and is used to indicate that the given ParameterName is the linguistic name of the ParameterSymbol. For instance, the phrase "Hubble constant" is the linguistic name (ParameterName) for the symbol "H\_0"
+
+#### Property
+
+
 #### Confidence
 #### Condition
-#### Name
-Bi-directional
-#### Property
-#### Source
-#### Method
-#### Defined
 
 
 
@@ -181,12 +196,18 @@ Don't annotate hyper-specific examples
 Important
 	Please link names and symbols even if they do not occur with a numerical measurement
 	In cases where an parameter/object is mentioned multiple times, please try and make links between linguistically significant pairs
+When not to annotate an abstract
 
 How to deal with constraints expressed in words?
 
 ~~~ ann
 Allowing the inclination to be a free parameter we find a lower limit for the spin of 0.90 , this value increases to that of a maximal rotating black hole when the inclination is set to that of the orbital plane of J1655-40 .
 ~~~
+
+~~~ ann
+The half-light radii and ellipticities of the GCs in our sample ( \bar { r \_ { h } } \simeq 3.3 pc , \overline { \epsilon } \simeq 0.1 ) are similar to those of old GCs in the Magellanic Clouds and to those of “ Old Halo ” ( OH ) GCs in our Galaxy , but not as extended and spherical as the Galactic “ Young Halo ” ( YH ) GCs ( \bar { r \_ { h } } \simeq 7.7 pc , \overline { \epsilon } \simeq 0.06 ) .
+~~~
+0803.0551
 
 Complicated examples:
 * 0803.0551
