@@ -50,19 +50,43 @@ The primary goal of this project is to link numerical measurements to physical e
 
 An example of a `measured value` would be:
 
-EXAMPLE
+~~~ ann
+H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma )
+T1 ParameterSymbol 0 9 H _ { 0 }
+T2 MeasuredValue 12 54 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
+T3 ConfidenceLimit 55 67 ( 1 \sigma )
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Confidence Arg1:T2 Arg2:T3
+~~~
+0709.2195
 
 When annotating a measured value, please include the central value, along with any uncertainties and units that may be given. Measured values in a scientific context should have at least one uncertainty associated with them, but it is possible that this uncertainty may be given somewhere else in the text. HOW TO DEAL WITH THIS? If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
 
-EXAMPLE
+~~~ ann
+We achieve a distance measure at redshift z = 0.275 , of r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 ) = 0.1390 \pm 0.0037 ( 2.7 % accuracy )
+T1 ParameterName 13 29 distance measure
+T2 ParameterSymbol 57 102 r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 )
+T3 MeasuredValue 105 122 0.1390 \pm 0.0037
+R1 Name Arg1:T1 Arg2:T2
+R2 Measurement Arg1:T2 Arg2:T3
+~~~
+0907.1660
 
-A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed below in REFERENCE/
+The "redshift z = 0.275" is definitely not a MeasuredValue, despite having a name, symbol, and value.
+
+A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed [below](#attributes).
 
 #### Constraint
 
 And an example of a `constraint` would be:
 
-EXAMPLE
+~~~ ann
+-0.0179 < \Omega _ { k } < 0.0081 \mbox { ( 95 \% CL ) }
+T1 Constraint 0 33 -0.0179 < \Omega _ { k } < 0.0081
+T2 ConfidenceLimit 44 49 95 \%
+R1 Confidence Arg1:T1 Arg2:T2
+~~~
+0803.0732
 
 When annotating a constraint, please include the value and any associated units, the equality operator (`<`, `>`, `\gt`, `\lt`, `\geq`, etc.), and the mathematical symbol being used in the expression, if present. It is possible that some of these components may not be present in the constraint, as in the following example:
 
@@ -74,45 +98,86 @@ Allowing the inclination to be a free parameter we find a lower limit for the sp
 
 In this case, HOW TO DEAL WITH THIS.
 
-A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed below in REFERENCE/
+A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed [below](#attributes).
 
 #### Physical Entities
 
 A physical entity here is considered to be a property (either of the Universe or a specific object) which may be measured in some way to produce a numerical result. For instance, we may measure the Hubble Constant (property of the Universe), or the radius of the Milky Way Galaxy.
 
-##### Parameter Name
+##### ParameterName
 
 Property names are identified using the `Parameter Name` annotation. This annotation is specifically for written (i.e. linguistic) names of physical entities. For example in the following sentence:
 
-EXAMPLE
+~~~ ann
+...this time-delay estimate yields a Hubble parameter of H _ { 0 } = 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } } ( 95 \% confidence level ) where...
+T1 ParameterName 37 53 Hubble parameter
+T2 ParameterSymbol 58 66 H _ { 0 } 
+T3 MeasuredValue 69 147 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } }
+T4 ConfidenceLimit 150 155 95 \%
+R1 Name Arg1:T1 Arg2:T2
+R2 Measurement Arg1:T2 Arg2: T3
+R3 Confidence Arg1:T3 Arg2:T4
+~~~
+astro-ph0007136
 
-note that the written name has a separate annotation to the mathematical symbol. The two should be linked by the annotator, however, as discussed below in the RELATIONS SECTION.
+note that the written name has a separate annotation to the mathematical symbol. The two should be linked by the annotator, however, as discussed [below](#measurement).
 
-Parameter names can become complicated due to being dependant on other parts of the text (for instance, when the word "radius" is used as a parameter name, what is it the radius of?). This is discussed below in the section on SECTION NAME.
+Parameter names can become complicated due to being dependant on other parts of the text (for instance, when the word "radius" is used as a parameter name, what is it the radius of?). This is discussed below in the section on the [Object entity](#objectname).
 
 Please annotate all instances of Parameter Names that you encounter - even if they are not directly tied to a mathematical symbol or measurement. For instance, in the following sentence:
 
-EXAMPLE
+~~~ ann
+...suggesting that the combination of these two independent phenomena provides an interesting method to constrain the Hubble constant .
+T1 ParameterName 118 135 Hubble constant
+~~~
+0709.2195
 
 the annotation is helpful, as it aids the entity recoginition phase of our model training.
 
-##### Parameter Symbol
+##### ParameterSymbol
 
 Mathematical symbols are annotated separately to the written names of physical entities. When a mathematical symbol appears next to a written name, please ensure that you give separate labels for each, as in the following example:
 
-EXAMPLE
+~~~ ann
+...significantly reduces the uncertainty in the optical depth parameter , \tau .
+T1 ParameterName 48 71 optical depth parameter
+T2 ParameterSymbol 74 78 \tau
+R1 Name Arg1:T1 Arg2:T2
+~~~
+0803.0732
+
+~~~ ann
+...where r _ { s } ( z _ { d } ) is the comoving sound horizon at the baryon drag epoch...
+T1 ParameterSymbol 9 32 r _ { s } ( z _ { d } )
+T2 ParameterName 40 87 comoving sound horizon at the baryon drag epoch
+~~~
+0907.1660
 
 Note that due to our text being derived from LaTeX source files, there may be some fairly convoluted TeX syntax within the spans for mathematical symbols. Please take the time to properly determine the start and end of these symbols, as this will be very helpful for training our future models.
 
-As for Parameter Names, please annotate all instances of Parameter Symbols you encounter, even if they appear independently of any measurements or Parameter Names. A caveat to this is in the case of equations: a separate annotation, `Definition`, exists for this situation. See REFERENCE TO DEFINITION. 
+As for ParameterNames, please annotate all instances of ParameterSymbols you encounter, even if they appear independently of any measurements or ParameterNames.
 
-##### Object Name
+~~~ ann
+Observations of megamaser disks in other galaxies will further reduce the uncertainty in H _ { 0 } as measured by the MCP .
+T1 ParameterSymbol 89 98 H _ { 0 }
+~~~
+1005.1955
+
+A caveat to this is in the case of equations: a separate annotation, `Definition`, exists for this situation. See [below](#definition). 
+
+##### Object
 
 Global properties (e.g. Hubble constant) may usually be identified in free text by their name (or symbol, if a recognisable one exists) alone, but this is often not the case for properties of objects. For example, consider the following sentence:
 
-EXAMPLE
+~~~ ann
+The inclination of this system is estimated at 55 ^ { +2 } _ { -7 } degrees .
+T1 ParameterName 4 15 inclination
+T2 MeasuredValue 47 75 55 ^ { +2 } _ { -7 } degrees
+R1 Measurement Arg1:T1 Arg2:T2
+~~~
+0902.1745
 
-Here we have no indication of what object PROPERTY relates to. In cases such as this, however, the object is generally referenced somewhere else in the text, and we use the `Object Name` annotation to identify this object. We may then link the Object Name to the Parameter Name or Parameter Symbol annotation (preferring the written name if available) using the Property relation as described in REFERENCE.
+Here we have no indication of what object "inclination" relates to. In cases such as this, however, the object is generally referenced somewhere else in the text, and we use the `Object Name` annotation to identify this object. We may then link the Object Name to the Parameter Name or Parameter Symbol annotation (preferring the written name if available) using the Property relation as described in the [relations section](#property).
 
 In the case where the object and property appear in the same sentence, please annotate the Object Name and Property Name separately, as in the following examples:
 
@@ -132,7 +197,7 @@ In such cases, please annotate the confidence limit value and any necessary "uni
 
 EXAMPLE SHOWING NOT TO INCLUDE "C.L."
 
-This annotation may then be linked to a measurement annotation using the `Confidence` relation, as discussed REFERENCE.
+This annotation may then be linked to a measurement annotation using the `Confidence` relation, as discussed [here](#confidence).
 
 #### Definition
 
@@ -352,6 +417,21 @@ R2 Confidence Arg1:T2 Arg2:T3
 R3 Measurement Arg1:T4 Arg2:T5
 ~~~
 0709.2195
+
+~~~ ann
+We achieve a distance measure at redshift z = 0.275 , of r _ { s  } ( z _ { d  }  ) / D _ { V  } ( 0.275  ) = 0.1390 \pm 0.0037 ( 2.7 % accuracy  ) , where r _ { s  } ( z _ { d  }  ) is the comoving sound horizon at the baryon drag epoch , D _ { V  } ( z  ) \equiv [ ( 1 + z  ) ^ { 2  } D _ { A  } ^ { 2  } cz / H ( z  )  ] ^ { 1 / 3  } , D _ { A  } ( z  ) is the angular diameter distance and H ( z  ) is the Hubble parameter .
+~~~
+0907.1660
+
+~~~ ann
+From the maximum magnitude – rate of decline relation , we estimate the maximum absolute visual magnitude of M _ { Vmax } = -8.85 \pm 0.04 mag
+T1 ParameterName 72 105 maximum absolute visual magnitude
+T2 ParameterSymbol 109 121 M _ { Vmax }
+T3 MeasuredValue 124 142 -8.85 \pm 0.04 mag
+R1 Name Arg1:T1 Arg2:T2
+R2 Measurement Arg1:T2 Arg2:T3
+~~~
+0710.5701
 
 ## Annotation Entities and Relations
 
