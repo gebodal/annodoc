@@ -1,6 +1,6 @@
 ---
 layout: entry
-title: Numerical Atlas Documentation
+title: Numerical Atlas Annotation Documentation
 ---
 
 Welcome to the Numerical Atlas annotation project documentation. The following sections will introduce you to the annotation schema will shall be using for this project, and the annotation tool which shall be employing (brat rapid annotation tool).
@@ -50,6 +50,7 @@ The primary goal of this project is to link numerical measurements to physical e
 
 An example of a `measured value` would be:
 
+<div markdown="1">
 ~~~ ann
 H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma )
 T1 ParameterSymbol 0 9 H _ { 0 }
@@ -58,10 +59,12 @@ T3 ConfidenceLimit 55 67 ( 1 \sigma )
 R1 Measurement Arg1:T1 Arg2:T2
 R2 Confidence Arg1:T2 Arg2:T3
 ~~~
-0709.2195
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
+</div>
 
 When annotating a measured value, please include the central value, along with any uncertainties and units that may be given. Measured values in a scientific context should have at least one uncertainty associated with them, but it is possible that this uncertainty may be given somewhere else in the text. HOW TO DEAL WITH THIS? If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
 
+<div markdown="1">
 ~~~ ann
 We achieve a distance measure at redshift z = 0.275 , of r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 ) = 0.1390 \pm 0.0037 ( 2.7 % accuracy )
 T1 ParameterName 13 29 distance measure
@@ -70,7 +73,8 @@ T3 MeasuredValue 105 122 0.1390 \pm 0.0037
 R1 Name Arg1:T1 Arg2:T2
 R2 Measurement Arg1:T2 Arg2:T3
 ~~~
-0907.1660
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0907.1660" target="_blank">arXiv</a>)</span>
+</div>
 
 The "redshift z = 0.275" is definitely not a MeasuredValue, despite having a name, symbol, and value.
 
@@ -80,13 +84,15 @@ A MeasuredValue annotation may also require an "Attribute" to be set to indicate
 
 And an example of a `constraint` would be:
 
+<div markdown="1">
 ~~~ ann
 -0.0179 < \Omega _ { k } < 0.0081 \mbox { ( 95 \% CL ) }
 T1 Constraint 0 33 -0.0179 < \Omega _ { k } < 0.0081
 T2 ConfidenceLimit 44 49 95 \%
 R1 Confidence Arg1:T1 Arg2:T2
 ~~~
-0803.0732
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0803.0732" target="_blank">arXiv</a>)</span>
+</div>
 
 When annotating a constraint, please include the value and any associated units, the equality operator (`<`, `>`, `\gt`, `\lt`, `\geq`, etc.), and the mathematical symbol being used in the expression, if present. It is possible that some of these components may not be present in the constraint, as in the following example:
 
@@ -94,7 +100,7 @@ When annotating a constraint, please include the value and any associated units,
 ~~~ ann
 Allowing the inclination to be a free parameter we find a lower limit for the spin of 0.90 , this value increases to that of a maximal rotating black hole when the inclination is set to that of the orbital plane of J1655-40 .
 ~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0902.1745">arXiv</a>)</span>
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0902.1745" target="_blank">arXiv</a>)</span>
 </div>
 
 In this case, HOW TO DEAL WITH THIS.
@@ -109,6 +115,7 @@ A physical entity here is considered to be a property (either of the Universe or
 
 Property names are identified using the `Parameter Name` annotation. This annotation is specifically for written (i.e. linguistic) names of physical entities. For example in the following sentence:
 
+<div markdown="1">
 ~~~ ann
 ...this time-delay estimate yields a Hubble parameter of H _ { 0 } = 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } } ( 95 \% confidence level ) where...
 T1 ParameterName 37 53 Hubble parameter
@@ -120,6 +127,8 @@ R2 Measurement Arg1:T2 Arg2:T3
 R3 Confidence Arg1:T3 Arg2:T4
 ~~~
 astro-ph0007136
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0902.1745" target="_blank">arXiv</a>)</span>
+</div>
 
 note that the written name has a separate annotation to the mathematical symbol. The two should be linked by the annotator, however, as discussed [below](#measurement).
 
