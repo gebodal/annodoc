@@ -162,14 +162,37 @@ EXAMPLE
 
 #### Name
 
-A `Name` relation is between a ParameterName and a ParameterSymbol, and is used to indicate that the given ParameterName is the linguistic name of the ParameterSymbol. For instance, the phrase "Hubble constant" is the linguistic name (ParameterName) for the symbol "H\_0"
+A `Name` relation is between a ParameterName and a ParameterSymbol, and is used to indicate that the given ParameterName is the linguistic name of the ParameterSymbol. For instance, the phrase "Hubble constant" is the linguistic name (ParameterName) for the symbol "H\_0" (ParameterSymbol).
+
+It is very likely that many mathematical symbols will be given in the text without reference to a linguistic name, especially in contexts where the symbol is commonly agreed upon within the field (for instance, it is not uncommon for "H\_0" and "\Omega\_\Lambda" to be used in cosmology papers without explanation). However, please do attempt to find an appropriate span in the text, and remember that the name and symbol may appear in different sentences.
+
+You will also encounter situations in which a name and symbol appear together without a nearby measurement. In such cases there will often be a measurement of the physical entity given later in the text (probably using only the symbol). When this occurs, please ensure you create a relation between the name and symbol which appear together, but do not create a Name relation between the ParameterName at the start of the document and the ParameterSymbol at the end (provided that the symbol uses exactly the same text). For example:
+
+EXAMPLE
+
+Any "missing" relations may be easily reconstructed automatically, and the resulting markup in the brat interface much more readable.
 
 #### Property
 
+A `Property` relation is between an Object and a ParameterName or ParameterSymbol, and is used to indicate that the name or symbol is given as a property of the annotated object. For example:
+
+EXAMPLE
+
+Please include these relations wherever possible, as they are prone to linguistic ambiguity - especially in the cases where there are multiple objects referenced in the same text.
 
 #### Confidence
+
+A `Confidence` relation is between a MeasuredValue or Constraint and a ConfidenceLimit, and is used to relate a measurement with a stated confidence. Note that in many cases a single confidence 
+
 #### Condition
 
+
+
+### Relations
+
+#### Incorrect
+#### AcceptedValue
+#### FromLiterature
 
 
 Need:
@@ -205,7 +228,7 @@ Allowing the inclination to be a free parameter we find a lower limit for the sp
 ~~~
 
 ~~~ ann
-The half-light radii and ellipticities of the GCs in our sample ( \bar { r \_ { h } } \simeq 3.3 pc , \overline { \epsilon } \simeq 0.1 ) are similar to those of old GCs in the Magellanic Clouds and to those of “ Old Halo ” ( OH ) GCs in our Galaxy , but not as extended and spherical as the Galactic “ Young Halo ” ( YH ) GCs ( \bar { r \_ { h } } \simeq 7.7 pc , \overline { \epsilon } \simeq 0.06 ) .
+The half-light radii and ellipticities of the GCs in our sample \( \bar \{ r \_ \{ h \} \} \simeq 3.3 pc , \overline \{ \epsilon \} \simeq 0.1 \) are similar to those of old GCs in the Magellanic Clouds and to those of “ Old Halo ” \( OH \) GCs in our Galaxy , but not as extended and spherical as the Galactic “ Young Halo ” \( YH \) GCs \( \bar \{ r \_ \{ h \} \} \simeq 7.7 pc , \overline \{ \epsilon \} \simeq 0.06 \) .
 ~~~
 0803.0551
 
