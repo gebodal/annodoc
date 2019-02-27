@@ -243,7 +243,7 @@ When not to annotate an abstract
 
 
 ~~~ ann
-The half-light radii and ellipticities of the GCs in our sample \( \bar \{ r \_ \{ h \} \} \simeq 3.3 pc , \overline \{ \epsilon \} \simeq 0.1 \) are similar to those of old GCs in the Magellanic Clouds and to those of “ Old Halo ” \( OH \) GCs in our Galaxy , but not as extended and spherical as the Galactic “ Young Halo ” \( YH \) GCs \( \bar \{ r \_ \{ h \} \} \simeq 7.7 pc , \overline \{ \epsilon \} \simeq 0.06 \) .
+The half-light radii and ellipticities of the GCs in our sample ( \bar { r _ { h } } \simeq 3.3 pc , \overline { \epsilon } \simeq 0.1 ) are similar to those of old GCs in the Magellanic Clouds and to those of “ Old Halo ” ( OH ) GCs in our Galaxy , but not as extended and spherical as the Galactic “ Young Halo ” ( YH ) GCs ( \bar { r _ { h } } \simeq 7.7 pc , \overline { \epsilon } \simeq 0.06 ) .
 ~~~
 0803.0551
 
@@ -266,7 +266,7 @@ R2 Confidence Arg1:T2 Arg2:T3
 Most examples will not be this neat, but many will follow this general pattern. For example:
 
 ~~~ ann
-Hubble constant H \_ \{ \\lower 2.0 pt \\hbox \{ \$ \\scriptstyle 0 \$ \} \} = 61.7 ^ \{ +1.2 \} \_ \{ -1.1 \} \\hbox \{ km \} \\hbox% \{ sec \} ^ \{ -1 \} \\hbox \{ Mpc \} ^ \{ -1 \}
+Hubble constant H _ { \lower 2.0 pt \hbox { \$ \scriptstyle 0 \$ } } = 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 }
 T1 ParameterName 0 15 Hubble constant
 T2 ParameterSymbol 16 66 H _ { \lower 2.0 pt \hbox { $ \scriptstyle 0 $ } }
 T3 MeasuredValue 69 156 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 }
