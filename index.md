@@ -19,6 +19,21 @@ Our initial work towards this may be found [here](https://arxiv.org/abs/1902.000
 
 To move further with the project we now require a corpus of annotated examples to use as training data for future models TALK ABOUT DEEP LEARNING. That is where you will prove useful. This documentation will help explain the basics of annotating abstracts of astrophysical papers using brat and the annotation schema we have created.
 
+<div markdown="1">
+~~~ ann
+In the framework of the \Lambda CDM model our joint analysis yields a value of H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma ) with the best fit density parameter \Omega _ { M } = 0.27 \pm 0.03 .
+T1 ParameterSymbol 79 88 H _ { 0 }
+T2 MeasuredValue 91 133 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
+T3 ConfidenceLimit 134 146 ( 1 \sigma )
+T4 ParameterSymbol 183 197 \Omega _ { M }
+T5 MeasuredValue 200 213 0.27 \pm 0.03
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Confidence Arg1:T2 Arg2:T3
+R3 Measurement Arg1:T4 Arg2:T5
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
+</div>
+
 ### Glossary
 
 A brief glossary to help you with the natural language processing (NLP) terminology:
@@ -545,84 +560,6 @@ The half-light radii and ellipticities of the GCs in our sample ( \bar { r _ { h
 Complicated examples:
 * 0803.0551
 * 0905.3401
-
-
-
-<div markdown="1">
-~~~ ann
-We found that 13 nights of V5116 Sgr observations in the year 2006 are modulated with a period of 0.1238 \pm 0.0001 d ( 2.9712 \pm 0.0024 h )
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0710.5701" target="_blank">arXiv</a>)</span>
-</div>
-
-
-<div markdown="1">
-~~~ ann
-this time-delay estimate yields a Hubble parameter of H _ { 0 } = 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } } ( 95 \% confidence level ) where the errors include time-delay as well as model uncertainties
-T1 ParameterName 34 50 Hubble parameter
-T2 ParameterSymbol 54 63 H _ { 0 }
-T3 MeasuredValue 66 145 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } }
-T4 ConfidenceLimit 148 153 95 \%
-R1 Name Arg1:T1 Arg2:T2
-R2 Measurement Arg1:T2 Arg2:T3
-R3 Confidence Arg1:T3 Arg2:T4
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0007136" target="_blank">arXiv</a>)</span>
-</div>
-
-<div markdown="1">
-~~~ ann
-D _ { A } ( z ) is the angular diameter distance and H ( z ) is the Hubble parameter 
-T1 ParameterSymbol 0 15 D _ { A } ( z )
-T2 ParameterName 23 48 angular diameter distance
-T3 ParameterSymbol 53 60 H ( z )
-T4 ParameterName 68 84 Hubble parameter
-R1 Name Arg1:T1 Arg2:T2
-R2 Name Arg1:T3 Arg2:T4
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0907.1660" target="_blank">arXiv</a>)</span>
-</div>
-
-<div markdown="1">
-~~~ ann
-\sigma _ { 8 } \Omega _ { m } ^ { 0.6 } = 0.54 ( 0.40 , 0.73 )
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0006170" target="_blank">arXiv</a>)</span>
-</div>
-
-<div markdown="1">
-~~~ ann
-In the framework of the \Lambda CDM model our joint analysis yields a value of H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma ) with the best fit density parameter \Omega _ { M } = 0.27 \pm 0.03 .
-T1 ParameterSymbol 79 88 H _ { 0 }
-T2 MeasuredValue 91 133 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
-T3 ConfidenceLimit 134 146 ( 1 \sigma )
-T4 ParameterSymbol 183 197 \Omega _ { M }
-T5 MeasuredValue 200 213 0.27 \pm 0.03
-R1 Measurement Arg1:T1 Arg2:T2
-R2 Confidence Arg1:T2 Arg2:T3
-R3 Measurement Arg1:T4 Arg2:T5
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
-</div>
-
-<div markdown="1">
-~~~ ann
-We achieve a distance measure at redshift z = 0.275 , of r _ { s  } ( z _ { d  }  ) / D _ { V  } ( 0.275  ) = 0.1390 \pm 0.0037 ( 2.7 % accuracy  ) , where r _ { s  } ( z _ { d  }  ) is the comoving sound horizon at the baryon drag epoch , D _ { V  } ( z  ) \equiv [ ( 1 + z  ) ^ { 2  } D _ { A  } ^ { 2  } cz / H ( z  )  ] ^ { 1 / 3  } , D _ { A  } ( z  ) is the angular diameter distance and H ( z  ) is the Hubble parameter .
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0907.1660" target="_blank">arXiv</a>)</span>
-</div>
-
-<div markdown="1">
-~~~ ann
-From the maximum magnitude – rate of decline relation , we estimate the maximum absolute visual magnitude of M _ { Vmax } = -8.85 \pm 0.04 mag
-T1 ParameterName 72 105 maximum absolute visual magnitude
-T2 ParameterSymbol 109 121 M _ { Vmax }
-T3 MeasuredValue 124 142 -8.85 \pm 0.04 mag
-R1 Name Arg1:T1 Arg2:T2
-R2 Measurement Arg1:T2 Arg2:T3
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0710.5701" target="_blank">arXiv</a>)</span>
-</div>
 
 ## Annotation Entities and Relations
 
