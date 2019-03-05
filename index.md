@@ -111,7 +111,7 @@ R1 Confidence Arg1:T1 Arg2:T2
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0803.0732" target="_blank">arXiv</a>)</span>
 </div>
 
-When annotating a constraint, please include the value and any associated units, the equality operator (`<`, `>`, `\gt`, `\lt`, `\geq`, etc.), and the mathematical symbol being used in the expression, if present. It is possible that some of these components may not be present in the constraint, as in the following example:
+When annotating a constraint, please include the value and any associated units, the equality operator (`<`, `>`, `\gt`, `\lt`, `\geq`, etc.), and the mathematical symbol being used in the expression, if present (the individual components may be easily extracted automatically). It is possible that some of these components may not be present in the constraint, as in the following example:
 
 <div markdown="1">
 ~~~ ann
@@ -540,6 +540,8 @@ A1 LowerBound T3
 </div>
 
 the linguistics of the sentence must be taken into account before the nature of the constraint may be inferred - hence we require the annotator to include this information in the annotation. Also of note here is that the ParameterName also requires a separate annotation.
+
+(In the above example, hover over the `Constraint` annotation to see that it has the `LowerBound` attribute.)
 
 ## Cases to Ignore
 
