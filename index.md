@@ -375,7 +375,7 @@ A `Name` relation is between a ParameterName and a ParameterSymbol, and is used 
 
 It is very likely that many mathematical symbols will be given in the text without reference to a linguistic name, especially in contexts where the symbol is commonly agreed upon within the field (for instance, it is not uncommon for "H\_0" and "\Omega\_\Lambda" to be used in cosmology papers without explanation). However, please do attempt to find an appropriate span in the text, and remember that the name and symbol may appear in different sentences.
 
-You will also encounter situations in which a name and symbol appear together without a nearby measurement. In such cases there will often be a measurement of the physical entity given later in the text (probably using only the symbol). When this occurs, please ensure you create a relation between the name and symbol which appear together, but do not create a Name relation between the ParameterName at the start of the document and the ParameterSymbol at the end (provided that the symbol uses exactly the same text). For example:
+You will also encounter situations in which a name and symbol appear together without a nearby measurement. In such cases there will often be a measurement of the physical entity given later in the text (probably using only the symbol). When this occurs, please ensure you create a relation between the name and symbol which appear together (i.e. the name and symbol which have the strongest linguistic connection), but do not create a Name relation between the ParameterName at the start of the document and the ParameterSymbol at the end (provided that the symbol uses exactly the same text). For example:
 
 EXAMPLE - NEEDS PICTURE
 
@@ -492,15 +492,9 @@ the linguistics of the sentence must be taken into account before the nature of 
 
 Need:
 Cases to ignore
-Details
 Don't annotate hyper-specific examples
 	Percentages relating to specific catalogue/sample
 	Details regarding specific catalogue/sample
-Important
-	Please link names and symbols even if they do not occur with a numerical measurement
-	In cases where an parameter/object is mentioned multiple times, please try and make links between linguistically significant pairs
-When not to annotate an abstract
-Can send link from brat to specific annotation
 
 <div markdown="1">
 ~~~ ann
@@ -658,3 +652,5 @@ A full list of the annotation relations is given below:
 ## Contact
 
 If you encounter issues with your annotation work, or have questions regarding logging in or using brat, please contact us by email [here](mailto:example@name.org).
+
+If you need to refer to a specific annotation when corresponding, please note that you can find a link to an annotation by double clicking in the annotation in the brat interface and clicking "Link" in the right hand side of the "Text" section in the resulting window.
