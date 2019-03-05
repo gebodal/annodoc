@@ -553,8 +553,8 @@ Here is a list of cases you should ignore (this list may be added to as annotato
 * All measurements in abstract relate to specific properties of a non-standard sample (for instance, a sample of stars selected for this specific paper). Please note that papers using specific samples may still produce results which are intended to generalise, and these abstracts should still be annotated.
 
 Some papers which are known to be complicated examples are given here:
-* 0803.0551
-* 0905.3401
+* [0803.0551](https://arxiv.org/abs/0803.0551 "arXiv link")
+* [0905.3401](https://arxiv.org/abs/0905.3401 "arXiv link")
 
 ## Contact
 
