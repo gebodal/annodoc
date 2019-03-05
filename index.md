@@ -167,6 +167,20 @@ T1 ParameterName 118 135 Hubble constant
 
 the annotation is helpful, as it aids the entity recoginition phase of our model training.
 
+Exactly where a parameter name begins and ends is a judgement call for the annotator - do be aware that in astrophysical contexts names can become rather verbose, as in the following:
+
+<div markdown="1">
+~~~ ann
+The mass ratio of non–baryonic dark matter to baryonic matter is 3.1 ^ { +2.5 } _ { -2.4 }
+T1 ParameterName 4 61 mass ratio of non–baryonic dark matter to baryonic matter
+T2 MeasuredValue 65 90 3.1 ^ { +2.5 } _ { -2.4 }
+R1 Measurement Arg1:T1 Arg2:T2
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2535" target="_blank">arXiv</a>)</span>
+</div>
+
+In such cases, please use your judgement to decide if the name qualifies as a single entity, or should be divided into an Object-Property relation, as discussed [below](#object "Object") and in the [relations section](#property "Property").
+
 ##### ParameterSymbol
 
 Mathematical symbols are annotated separately to the written names of physical entities. When a mathematical symbol appears next to a written name, please ensure that you give separate labels for each, as in the following example:
@@ -190,7 +204,19 @@ T2 ParameterName 40 87 comoving sound horizon at the baryon drag epoch
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0907.1660" target="_blank">arXiv</a>)</span>
 </div>
 
-Note that due to our text being derived from LaTeX source files, there may be some fairly convoluted TeX syntax within the spans for mathematical symbols. Please take the time to properly determine the start and end of these symbols, as this will be very helpful for training our future models.
+Note that due to our text being derived from LaTeX source files, there may be some fairly convoluted TeX syntax within the spans for mathematical symbols. Please take the time to properly determine the start and end of these symbols, as this will be very helpful for training our future models. An example of this kind of TeX would be:
+
+<div markdown="1">
+~~~ ann
+Hubble constant H _ { \lower 2.0 pt \hbox { \$ \scriptstyle 0 \$ } } = 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox\% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 } 
+T1 ParameterName 0 15 Hubble constant
+T2 ParameterSymbol 16 68 H _ { \lower 2.0 pt \hbox { \$ \scriptstyle 0 \$ } }
+T3 MeasuredValue 71 158 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox\% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 }
+R1 Name Arg1:T1 Arg2:T2
+R2 Measurement Arg1:T2 Arg2:T3
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2535" target="_blank">arXiv</a>)</span>
+</div>
 
 As for ParameterNames, please annotate all instances of ParameterSymbols you encounter, even if they appear independently of any measurements or ParameterNames.
 
@@ -427,7 +453,7 @@ R2 Confidence Arg1:T2 Arg2:T3
 
 #### Defined
 
-A `Defined` relation is between a ParameterName or ParameterSymbol and a Definition, and is used to indicate that the physical entity in question is defined by the mathematical expression in the Definition. An example of this would be:
+A `Defined` relation is between a ParameterName or ParameterSymbol and a Definition, and is used to indicate that the physical entity in question is defined by the mathematical expression in the Definition. Examples of this would be:
 
 <div markdown="1">
 ~~~ ann
@@ -438,8 +464,20 @@ T3 Definition 43 67 1 - \Omega _ { \Lambda }
 R1 Name Arg1:T1 Arg2:T2
 R2 Defined Arg1:T2 Arg2:T3
 ~~~
-0709.2195
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
+</div>
+
+
+<div markdown="1">
+~~~ ann
+the determination of the equation-of-state parameter of dark energy , w = P / ( \rho c ^ { 2 } )
+T1 ParameterName 25 67 equation-of-state parameter of dark energy
+T2 ParameterSymbol 70 71 w
+T3 Definition 74 96 P / ( \rho c ^ { 2 } )
+R1 Name Arg1:T1 Arg2:T2
+R2 Defined Arg1:T2 Arg2:T3
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0905.0695" target="_blank">arXiv</a>)</span>
 </div>
 
 #### Condition
@@ -501,55 +539,14 @@ Here is a list of cases you should ignore (this list may be added to as annotato
 ~~~ ann
 The half-light radii and ellipticities of the GCs in our sample ( \bar { r _ { h } } \simeq 3.3 pc , \overline { \epsilon } \simeq 0.1 ) are similar to those of old GCs in the Magellanic Clouds and to those of “ Old Halo ” ( OH ) GCs in our Galaxy , but not as extended and spherical as the Galactic “ Young Halo ” ( YH ) GCs ( \bar { r _ { h } } \simeq 7.7 pc , \overline { \epsilon } \simeq 0.06 ) .
 ~~~
-0803.0551
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/" target="_blank">arXiv</a>)</span>
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0803.0551" target="_blank">arXiv</a>)</span>
 </div>
 
 Complicated examples:
 * 0803.0551
 * 0905.3401
 
-The following is a very clean example of the kind of text spans we are looking for:
 
-<div markdown="1">
-~~~ ann
-H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma )
-T1 ParameterSymbol 0 9 H _ { 0 }
-T2 MeasuredValue 12 54 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
-T3 ConfidenceLimit 55 67 ( 1 \sigma )
-R1 Measurement Arg1:T1 Arg2:T2
-R2 Confidence Arg1:T2 Arg2:T3
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
-</div>
-
-Most examples will not be this neat, but many will follow this general pattern. For example:
-
-<div markdown="1">
-~~~ ann
-Hubble constant H _ { \lower 2.0 pt \hbox { \$ \scriptstyle 0 \$ } } = 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox\% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 } 
-T1 ParameterName 0 15 Hubble constant
-T2 ParameterSymbol 16 68 H _ { \lower 2.0 pt \hbox { \$ \scriptstyle 0 \$ } }
-T3 MeasuredValue 71 158 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox\% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 }
-R1 Name Arg1:T1 Arg2:T2
-R2 Measurement Arg1:T2 Arg2:T3
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2535" target="_blank">arXiv</a>)</span>
-</div>
-
-This follows the same basic pattern, but with TeX structs taking up much more space.
-
-<div markdown="1">
-~~~ ann
-the determination of the equation-of-state parameter of dark energy , w = P / ( \rho c ^ { 2 } )
-T1 ParameterName 25 67 equation-of-state parameter of dark energy
-T2 ParameterSymbol 70 71 w
-T3 Definition 74 96 P / ( \rho c ^ { 2 } )
-R1 Name Arg1:T1 Arg2:T2
-R2 Defined Arg1:T2 Arg2:T3
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0905.0695" target="_blank">arXiv</a>)</span>
-</div>
 
 <div markdown="1">
 ~~~ ann
@@ -558,15 +555,6 @@ We found that 13 nights of V5116 Sgr observations in the year 2006 are modulated
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0710.5701" target="_blank">arXiv</a>)</span>
 </div>
 
-<div markdown="1">
-~~~ ann
-The mass ratio of non–baryonic dark matter to baryonic matter is 3.1 ^ { +2.5 } _ { -2.4 }
-T1 ParameterName 4 61 mass ratio of non–baryonic dark matter to baryonic matter
-T2 MeasuredValue 65 90 3.1 ^ { +2.5 } _ { -2.4 }
-R1 Measurement Arg1:T1 Arg2:T2
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2535" target="_blank">arXiv</a>)</span>
-</div>
 
 <div markdown="1">
 ~~~ ann
