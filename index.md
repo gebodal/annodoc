@@ -19,21 +19,6 @@ Our initial work towards this may be found [here](https://arxiv.org/abs/1902.000
 
 To move further with the project we now require a corpus of annotated examples to use as training data for future models TALK ABOUT DEEP LEARNING. That is where you will prove useful. This documentation will help explain the basics of annotating abstracts of astrophysical papers using brat and the annotation schema we have created.
 
-<div markdown="1">
-~~~ ann
-In the framework of the \Lambda CDM model our joint analysis yields a value of H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma ) with the best fit density parameter \Omega _ { M } = 0.27 \pm 0.03 .
-T1 ParameterSymbol 79 88 H _ { 0 }
-T2 MeasuredValue 91 133 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
-T3 ConfidenceLimit 134 146 ( 1 \sigma )
-T4 ParameterSymbol 183 197 \Omega _ { M }
-T5 MeasuredValue 200 213 0.27 \pm 0.03
-R1 Measurement Arg1:T1 Arg2:T2
-R2 Confidence Arg1:T2 Arg2:T3
-R3 Measurement Arg1:T4 Arg2:T5
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
-</div>
-
 ### Glossary
 
 A brief glossary to help you with the natural language processing (NLP) terminology:
@@ -390,7 +375,7 @@ The available relations are discussed in the following sections.
 
 A `Measurement` relation starts at a ParameterName or ParameterSymbol, and ends at a MeasuredValue or Constraint. This relation indicates that the MeasuredValue or Constraint is a stated measurement of the physical entity denoted by the ParameterName/ParameterSymbol. Ideally, all MeasuredValue and Constraint annotations should have an associated Measurement relation, but there are edge cases where it is very difficult to identify an appropriate ParameterName or ParameterSymbol. In such cases, please annotate as fully as possible.
 
-An example of a standard Measurement relation would be:
+Examples of standard Measurement relations would be:
 
 <div markdown="1">
 ~~~ ann
@@ -400,6 +385,21 @@ T2 MeasuredValue 12 54 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
 T3 ConfidenceLimit 55 67 ( 1 \sigma )
 R1 Measurement Arg1:T1 Arg2:T2
 R2 Confidence Arg1:T2 Arg2:T3
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
+</div>
+
+<div markdown="1">
+~~~ ann
+In the framework of the \Lambda CDM model our joint analysis yields a value of H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma ) with the best fit density parameter \Omega _ { M } = 0.27 \pm 0.03 .
+T1 ParameterSymbol 79 88 H _ { 0 }
+T2 MeasuredValue 91 133 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
+T3 ConfidenceLimit 134 146 ( 1 \sigma )
+T4 ParameterSymbol 183 197 \Omega _ { M }
+T5 MeasuredValue 200 213 0.27 \pm 0.03
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Confidence Arg1:T2 Arg2:T3
+R3 Measurement Arg1:T4 Arg2:T5
 ~~~
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
 </div>
@@ -550,30 +550,9 @@ In such cases, please do not create any annotations for the abstract (or delete 
 Here is a list of cases you should ignore (this list may be added to as annotators provide feedback to us, so do check back if you find something unusual, as it may have found its way to this list already):
 * All measurements in abstract relate to specific properties of a non-standard sample (for instance, a sample of stars selected for this specific paper). Please note that papers using specific samples may still produce results which are intended to generalise, and these abstracts should still be annotated.
 
-<div markdown="1">
-~~~ ann
-The half-light radii and ellipticities of the GCs in our sample ( \bar { r _ { h } } \simeq 3.3 pc , \overline { \epsilon } \simeq 0.1 ) are similar to those of old GCs in the Magellanic Clouds and to those of “ Old Halo ” ( OH ) GCs in our Galaxy , but not as extended and spherical as the Galactic “ Young Halo ” ( YH ) GCs ( \bar { r _ { h } } \simeq 7.7 pc , \overline { \epsilon } \simeq 0.06 ) .
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0803.0551" target="_blank">arXiv</a>)</span>
-</div>
-
-Complicated examples:
+Some papers which are known to be complicated examples are given here:
 * 0803.0551
 * 0905.3401
-
-## Annotation Entities and Relations
-
-A full list of the available annotation entities is given below:
-
-{% for e in site.entity %}
-* [{{ e.title  }}]({{ e.url | remove_first:'/'  }}): {{ e.shortdef  }}
-{% endfor %}
-
-A full list of the annotation relations is given below:
-
-{% for r in site.relation %}
-* [{{ r.title  }}]({{ r.url | remove_first:'/'  }}): {{ r.shortdef  }}
-{% endfor %}
 
 ## Contact
 
