@@ -442,10 +442,10 @@ Most examples will not be this neat, but many will follow this general pattern. 
 
 <div markdown="1">
 ~~~ ann
-Hubble constant H _ { \lower 2.0 pt \hbox { \$ \scriptstyle 0 \$ } } = 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 } 
-T1 ParameterName 0 15 Hubble constant
-T2 ParameterSymbol 16 68 H _ { \lower 2.0 pt \hbox { \$ \scriptstyle 0 \$ } }
-T3 MeasuredValue 71 158 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 }
+Hubble constant H _ { \lower 2.0 pt \hbox { \$ \scriptstyle 0 \$ } } = 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox\% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 } 
+T1 ParameterName 0 15
+T2 ParameterSymbol 16 68
+T3 MeasuredValue 71 158
 R1 Name Arg1:T1 Arg2:T2
 R2 Measurement Arg1:T2 Arg2:T3
 ~~~
