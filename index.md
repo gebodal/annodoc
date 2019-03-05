@@ -63,7 +63,7 @@ R2 Confidence Arg1:T2 Arg2:T3
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
 </div>
 
-When annotating a measured value, please include the central value, along with any uncertainties and units that may be given. Measured values in a scientific context should have at least one uncertainty associated with them, but it is possible that this uncertainty may be given somewhere else in the text. INCLUDE SEPARATEUNCERTAINTY If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
+When annotating a measured value, please include the central value, along with any uncertainties and units that may be given. Measured values in a scientific context should have at least one uncertainty associated with them, but it is possible that this uncertainty may be given somewhere else in the text. If this is the case, please use the SeparatedUncertainty annotation [below](#separateduncertainty "SeparatedUncertainty"). If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
 
 <div markdown="1">
 ~~~ ann
@@ -80,6 +80,22 @@ R2 Measurement Arg1:T2 Arg2:T3
 The "redshift z = 0.275" is definitely not a MeasuredValue, despite having a name, symbol, and value.
 
 A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed [below](#attributes "Attributes").
+
+#### SeparatedUncertainty
+
+If you encounter a measurement with an uncertainty given separately in the text, annotate the uncertainty with a SeparatedUncertainty annotation, and link it to the MeasuredValue with an Uncertainty relation (see [below](#uncertainty "Uncertainty")). An example of this would be:
+
+<div markdown="1">
+~~~ ann
+...is found to be around 0.39 GeV cm ^ { -3 } with a 1- \sigma error bar of about 7 %...
+T1 MeasuredValue 25 45 0.39 GeV cm ^ { -3 }
+T2 ConfidenceLimit 53 62 1- \sigma
+T3 SeparatedUncertainty 82 85 7 %
+R1 Confidence Arg1:T1 Arg2:T2
+R2 Uncertainty Arg1:T1 Arg2:T3
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0907.0018" target="_blank">arXiv</a>)</span>
+</div>
 
 #### Constraint
 
@@ -100,13 +116,18 @@ When annotating a constraint, please include the value and any associated units,
 <div markdown="1">
 ~~~ ann
 Allowing the inclination to be a free parameter we find a lower limit for the spin of 0.90 , this value increases to that of a maximal rotating black hole when the inclination is set to that of the orbital plane of J1655-40 .
+T1 ParameterName 13 24 inclination
+T2 ParameterName 78 82 spin
+T3 Constraint 86 90 0.90
+T4 ParameterName 164 175 inclination
+T5 Object 215 223 J1655-40
+R1 Measurement Arg1:T2 Arg2:T3
+A1 LowerBound T3
 ~~~
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0902.1745" target="_blank">arXiv</a>)</span>
 </div>
 
-In this case, HOW TO DEAL WITH THIS.
-
-A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed [below](#attributes "Attributes").
+In this case, we use the UpperBound and LowerBound attributes to specify the nature of the constraint. These are discussed [below](#upperbound-and-lowerbound "UpperBound and LowerBound").
 
 #### Physical Entities
 
@@ -275,6 +296,47 @@ T2 MeasuredValue 27 58 0.034 ^ { +0.007 } _ { -0.007 }
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0212497" target="_blank">arXiv</a>)</span>
 </div>
 
+#### Details
+
+The `Details` annotation is used to annotate information which is required to understand the nature of a measurement, but is not included in the measurement name. For example, consider the following:
+
+<div markdown="1">
+~~~ ann
+We achieve a distance measure at redshift z = 0.275 , of r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 ) = 0.1390 \pm 0.0037 ( 2.7 % accuracy )
+T1 ParameterName 13 29 distance measure
+T2 ParameterSymbol 57 102 r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 )
+T3 MeasuredValue 105 122 0.1390 \pm 0.0037
+T4 Details 43 51 z = 0.275
+R1 Name Arg1:T1 Arg2:T2
+R2 Measurement Arg1:T2 Arg2:T3
+R3 Condition Arg1:T3 Arg2:T4
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0907.1660" target="_blank">arXiv</a>)</span>
+</div>
+
+Here we could annotate the ParameterName as "distance measure at redshift z = 0.275", but this is overly complex and difficult to compare with other instances of "distance measure" (which is, in practice, the actual name of the measured property in this case). The information "at redshift z = 0.275" is important for understanding the measurement, however. As such, we annotate the detail "z = 0.275" as a `Details` entity, and link it to the `MeasuredValue` entity (see [below](#condition "Condition") for discussion on the relation).
+
+Please use the `Details` annotation sparingly - it is not meant to replace any of the other annotations here. It's presence is useful for inferring that additional information is required to contextualise the measurement in question. However, please note that not all `Details` annotations will be numerical in nature. In the following example, we have an instance of textual contingent information:
+
+<div markdown="1">
+~~~ ann
+We find a \rho _ { DM } ( R _ { 0 } ) = 0.385 \pm 0.027 GeV cm ^ { -3 } for the Einasto profile and \rho _ { DM } ( R _ { 0 } ) = 0.389 \pm 0.025 GeV cm ^ { -3 } for the NFW .
+T1 ParameterSymbol 10 37 \rho _ { DM } ( R _ { 0 } )
+T2 MeasuredValue 40 71 0.385 \pm 0.027 GeV cm ^ { -3 }
+T3 Details 80 95 Einasto profile
+T4 100 128 \rho _ { DM } ( R _ { 0 } )
+T5 131 162 0.389 \pm 0.025 GeV cm ^ { -3 }
+T6 Details 171 174 NFW
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Condition Arg1:T2 Arg2:T3
+R3 Measurement Arg1:T4 Arg2:T5
+R4 Condition Arg1:T5 Arg2:T6
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0907.0018" target="_blank">arXiv</a>)</span>
+</div>
+
+which is also useful for contextualising the measurement - especially in this case as the `Details` allows for the two measurements (which are of the same physical property) to be distinguished.
+
 ### Relations
 
 In addition to identifying spans of text which correspond to certain entities (names, symbols, numbers, etc.), we are also interested in the relationships between these entities - hence we define "Relations" between entities. Practically, these relations are created by clicking-and-dragging from one entity annotation to another. A window will appear in the brat interface allowing you to specify which type of relation you wish to create between the two entities. Note that the interface will only present the possible relations which may exist between the two entities, as each relation has defined start and end types.
@@ -303,6 +365,10 @@ R2 Confidence Arg1:T2 Arg2:T3
 
 It is possible that a given ParameterName or ParameterSymbol may have multiple measurement values associated with it. In which case simple create multiple relations from a single ParameterName/ParameterSymbol.
 
+#### Uncertainty
+
+A `Uncertainty` relation starts at a MeasuredValue and ends at a SeparatedUncertainty, and is used to indicate that the stated uncertainty (given at a separate location in the text) relates to the given measurement.
+
 #### Name
 
 A `Name` relation is between a ParameterName and a ParameterSymbol, and is used to indicate that the given ParameterName is the linguistic name of the ParameterSymbol. For instance, the phrase "Hubble constant" is the linguistic name (ParameterName) for the symbol "H\_0" (ParameterSymbol).
@@ -313,13 +379,13 @@ You will also encounter situations in which a name and symbol appear together wi
 
 EXAMPLE - NEEDS PICTURE
 
-Any "missing" relations may be easily reconstructed automatically, and the resulting markup in the brat interface much more readable.
+Any "missing" relations may be easily reconstructed automatically, and the resulting markup in the brat interfacei will be much more readable.
 
 However, if the only name/symbol pair in the text is greatly separated, please do annotate this - we require at least one relation between the spans in a given document.
 
 #### Property
 
-A `Property` relation is between an Object and a ParameterName or ParameterSymbol, and is used to indicate that the name or symbol is given as a property of the annotated object. For example:
+A `Property` relation is between an Object and a ParameterName or ParameterSymbol (or, occasionally, a MeasuredValue/Constraint, as discussed below), and is used to indicate that the name or symbol is given as a property of the annotated object. For example:
 
 <div markdown="1">
 ~~~ ann
@@ -334,6 +400,12 @@ R2 Measurement Arg1:T1 Arg2:T3
 </div>
 
 Please include these relations wherever possible, as they are prone to linguistic ambiguity - especially in the cases where there are multiple objects referenced in the same text.
+
+You may encounter situations in which a single instance of a ParameterName/ParameterSymbol is used to refer to measurements of multiple objects, as in the following:
+
+EXAMPLE
+
+In such cases, you may create a property relation from the Object to the specific MeasuredValue/Constraint, along with the Measurement relation from the ParameterName/ParameterSymbol to the MeasuredValue/Constraint.
 
 #### Confidence
 
@@ -370,6 +442,10 @@ R2 Defined Arg1:T2 Arg2:T3
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
 </div>
 
+#### Condition
+
+A `Condition` relation is between a MeasuredValue or Constraint and a Details, and is used to link contingent information to a measurement annotation. Examples and discussion may be found in the [Details](#details "Details") section above.
+
 ### Attributes
 
 An attribute is a label associated with an entity annotation. This is used to provide additional information about that annotation - for example, information implied by the context, but not actually included in the span itself.
@@ -392,17 +468,31 @@ The `Incorrect` attribute is used to indicate that the measurement annotation ha
 
 The `AcceptedValue` attribute is used to indicate that a given measurement is presented as the correct one - this is useful in cases where there are multiple determinations of a given quantity presented by the authors. If one measurement is indicated as being the accepted/final value, please add this attribute.
 
+#### UpperBound and LowerBound
+
+The `UpperBound` and `LowerBound` attributes are used to indicate that a number constitutes a constraint, but does not have the equality operators for the constraint nature to be simply inferred. For instance, if we have the Constraint annotation "\\Omega\_\\Lambda < 0.7", we can automate the process of inferring that this is an upper bound on the property "\\Omega\_\\Lambda". However, in the following example:
+
+<div markdown="1">
+~~~ ann
+Allowing the inclination to be a free parameter we find a lower limit for the spin of 0.90 , this value increases to that of a maximal rotating black hole when the inclination is set to that of the orbital plane of J1655-40 .
+T1 ParameterName 13 24 inclination
+T2 ParameterName 78 82 spin
+T3 Constraint 86 90 0.90
+T4 ParameterName 164 175 inclination
+T5 Object 215 223 J1655-40
+R1 Measurement Arg1:T2 Arg2:T3
+A1 LowerBound T3
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0902.1745" target="_blank">arXiv</a>)</span>
+</div>
+
+the linguistics of the sentence must be taken into account before the nature of the constraint may be inferred - hence we require the annotator to include this information in the annotation. Also of note here is that the ParameterName also requires a separate annotation.
+
 ## Notes
 
-
-
 Need:
-Bad examples
-	Messy TeX span
-	Confusing details case
-	Cases to ignore
-Edge cases
-	Details
+Cases to ignore
+Details
 Don't annotate hyper-specific examples
 	Percentages relating to specific catalogue/sample
 	Details regarding specific catalogue/sample
@@ -515,20 +605,6 @@ R2 Name Arg1:T3 Arg2:T4
 \sigma _ { 8 } \Omega _ { m } ^ { 0.6 } = 0.54 ( 0.40 , 0.73 )
 ~~~
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0006170" target="_blank">arXiv</a>)</span>
-</div>
-
-Ambiguous - should the z = 0.275 be included in the ParameterName or as a separate Details?
-
-<div markdown="1">
-~~~ ann
-We achieve a distance measure at redshift z = 0.275 , of r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 ) = 0.1390 \pm 0.0037 ( 2.7 % accuracy )
-T1 ParameterName 13 29 distance measure
-T2 ParameterSymbol 57 102 r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 )
-T3 MeasuredValue 105 122 0.1390 \pm 0.0037
-R1 Name Arg1:T1 Arg2:T2
-R2 Measurement Arg1:T2 Arg2:T3
-~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0907.1660" target="_blank">arXiv</a>)</span>
 </div>
 
 <div markdown="1">
