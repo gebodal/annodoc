@@ -66,7 +66,7 @@ R2 Confidence Arg1:T2 Arg2:T3
 When annotating a measured value, please include the central value, along with any uncertainties and units that may be given. Measured values in a scientific context should have at least one uncertainty associated with them, but it is possible that this uncertainty may be given somewhere else in the text. INCLUDE SEPARATEUNCERTAINTY If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
 
 <div markdown="1">
-~~~
+~~~ ann
 We achieve a distance measure at redshift z = 0.275 , of r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 ) = 0.1390 \pm 0.0037 ( 2.7 % accuracy )
 T1 ParameterName 13 29 distance measure
 T2 ParameterSymbol 57 102 r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 )
@@ -74,7 +74,6 @@ T3 MeasuredValue 105 122 0.1390 \pm 0.0037
 R1 Name Arg1:T1 Arg2:T2
 R2 Measurement Arg1:T2 Arg2:T3
 ~~~
-{:.ann tabs="yes"}
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0907.1660" target="_blank">arXiv</a>)</span>
 </div>
 
@@ -140,7 +139,7 @@ Please annotate all instances of Parameter Names that you encounter - even if th
 <div markdown="1">
 ~~~ ann
 ...suggesting that the combination of these two independent phenomena provides an interesting method to constrain the Hubble constant .
-T1 ParameterName 129 144 Hubble constant
+T1 ParameterName 118 135 Hubble constant
 ~~~
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
 </div>
@@ -443,7 +442,7 @@ Most examples will not be this neat, but many will follow this general pattern. 
 
 <div markdown="1">
 ~~~ ann
-Hubble constant H _ { \lower 2.0 pt \hbox { \$ \scriptstyle 0 \$ } } = 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 }
+Hubble constant H _ { \lower 2.0 pt \hbox { \$ \scriptstyle 0 \$ } } = 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 } 
 T1 ParameterName 0 15 Hubble constant
 T2 ParameterSymbol 16 68 H _ { \lower 2.0 pt \hbox { \$ \scriptstyle 0 \$ } }
 T3 MeasuredValue 71 158 61.7 ^ { +1.2 } _ { -1.1 } \hbox { km } \hbox% { sec } ^ { -1 } \hbox { Mpc } ^ { -1 }
