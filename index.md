@@ -488,13 +488,14 @@ A1 LowerBound T3
 
 the linguistics of the sentence must be taken into account before the nature of the constraint may be inferred - hence we require the annotator to include this information in the annotation. Also of note here is that the ParameterName also requires a separate annotation.
 
-## Notes
+## Cases to Ignore
 
-Need:
-Cases to ignore
-Don't annotate hyper-specific examples
-	Percentages relating to specific catalogue/sample
-	Details regarding specific catalogue/sample
+We use an automatic process to select article abstracts for annotation, which uses simple rules to decide whether or not an article reports measurements which we may annotate. This system is not perfect, and will occasionally suggest articles which are unsuited to our annotation schema. Sometimes this is simply that the article does not truly contain a "measurement" (although it will contain text spans which resemble a common pattern for a measurement), or it could be that the article is providing a measurement of somethign overly specific (for example, "58 \pm 2 % of our sample of white dwarf stars have a mass below the sample average", or something else equally contrived).
+
+In such cases, please do not create any annotations for the abstract (or delete any you have already made) and move on to the next abstract.
+
+Here is a list of cases you should ignore (this list may be added to as annotators provide feedback to us, so do check back if you find something unusual, as it may have found its way to this list already):
+* All measurements in abstract relate to specific properties of a non-standard sample (for instance, a sample of stars selected for this specific paper). Please note that papers using specific samples may still produce results which are intended to generalise, and these abstracts should still be annotated.
 
 <div markdown="1">
 ~~~ ann
