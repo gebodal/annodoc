@@ -45,7 +45,7 @@ An introduction to the brat interface may be found [here](http://brat.nlplab.org
 
 ### Entities
 
-The primary goal of this project is to link numerical measurements to physical entities in free text, and as such this is the backbone of our annotation process. Numerical measurements are relatively easy to identify in free text, and here are classified into two forms: `measured values`, and `constraints`. Physical entities are a little more complex in the ways they may be represented in text. Here we annotate them using three primary Entity labels: `Parameter Name`, `Parameter Symbol`, and `Object Name`. These different labels are discussed below:
+The primary goal of this project is to link numerical measurements to physical entities in free text, and as such this is the backbone of our annotation process. Numerical measurements are relatively easy to identify in free text, and here are classified into two forms: measured values, and constraints. Physical entities are a little more complex in the ways they may be represented in text. Here we annotate them using three primary Entity labels: `Parameter Name`, `Parameter Symbol`, and `Object Name`. These different labels are discussed below:
 
 #### Measured Value
 
@@ -66,7 +66,7 @@ R2 Confidence Arg1:T2 Arg2:T3
 When annotating a measured value, please include the central value, along with any uncertainties and units that may be given. Measured values in a scientific context should have at least one uncertainty associated with them, but it is possible that this uncertainty may be given somewhere else in the text. INCLUDE SEPARATEUNCERTAINTY If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
 
 <div markdown="1">
-~~~ ann
+~~~
 We achieve a distance measure at redshift z = 0.275 , of r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 ) = 0.1390 \pm 0.0037 ( 2.7 % accuracy )
 T1 ParameterName 13 29 distance measure
 T2 ParameterSymbol 57 102 r _ { s } ( z _ { d } ) / D _ { V } ( 0.275 )
@@ -74,6 +74,7 @@ T3 MeasuredValue 105 122 0.1390 \pm 0.0037
 R1 Name Arg1:T1 Arg2:T2
 R2 Measurement Arg1:T2 Arg2:T3
 ~~~
+{:.ann tabs="yes"}
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0907.1660" target="_blank">arXiv</a>)</span>
 </div>
 
@@ -127,7 +128,7 @@ R1 Name Arg1:T1 Arg2:T2
 R2 Measurement Arg1:T2 Arg2:T3
 R3 Confidence Arg1:T3 Arg2:T4
 ~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph0007136" target="_blank">arXiv</a>)</span>
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0007136" target="_blank">arXiv</a>)</span>
 </div>
 
 note that the written name has a separate annotation to the mathematical symbol. The two should be linked by the annotator, however, as discussed [below](#measurement "Measurement").
@@ -272,7 +273,7 @@ If you encounter a mathematical expression outside of an equation (i.e. there is
 T1 ParameterName 0 24 \Omega _ { b } h ^ { 2 }
 T2 MeasuredValue 27 58 0.034 ^ { +0.007 } _ { -0.007 }
 ~~~
-<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph0212497" target="_blank">arXiv</a>)</span>
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0212497" target="_blank">arXiv</a>)</span>
 </div>
 
 ### Relations
