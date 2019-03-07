@@ -8,16 +8,45 @@ Welcome to the Numerical Atlas annotation project documentation. The following s
 ## Table of Contents
 
 * [Project Goal](#project-goal)
+ * [Glossary](#glossary)
+* [brat](#brat)
+* [Annotations](#annotations)
+ * [Entities](#entities)
+  * [MeasuredValue](#measuredvalue)
+  * [SeparatedUncertainty](#separateduncertainty)
+  * [Constraint](#constraint)
+  * [Physical Entities](#physical-entities)
+   * [ParameterName](#parametername)
+   * [ParameterSymbol](#parametersymbol)
+   * [Object](#object)
+   * [ConfidenceLimit](#confidencelimit)
+   * [Definition](#definition)
+   * [Details](#details)
+ * [Relations](#relations)
+  * [Measurement](#measurement)
+  * [Uncertainty](#uncertainty)
+  * [Name](#name)
+  * [Property](#property)
+  * [Confidence](#confidence)
+  * [Defined](#defined)
+  * [Condition](#condition)
+ * [Attributes](#attributes)
+  * [FromLiterature](#fromliterature)
+  * [Incorrect](#incorrect)
+  * [AcceptedValue](#acceptedvalue)
+  * [UpperBound and LowerBound](#upperbound-and-lowerbound)
+* [Cases to Ignore](#cases-to-ignore)
+* [Contact](#contact)
+   
 
 
 ## Project Goal
 
 The goal of this project is to produce a tool to automatically extract measurements from the astrophysical literature. 'Measurement' in this context refers to a numerical value associated with a named entity - for example the "Hubble constant", or "the mass of Jupiter". We hope to be able to extract and record the names, symbols, measured values, uncertainties, units, and confidence limits of measurements present in the text of astrophysics papers.
 
-WE HAVE ALREADY WRITTEN A PAPER ON OUR BASELINE MODELS SUBMITTED TO ETC
-Our initial work towards this may be found [here](https://arxiv.org/abs/1902.00027 "Machine-Assisted Meta-Studies").
+We have written a first paper discussing our baseline models and initial steps with neural network models, which may be found [here](https://arxiv.org/abs/1902.00027 "Machine-Assisted Meta-Studies") (submitted to the Monthy Notices of the Royal Astronomical Society).
 
-To move further with the project we now require a corpus of annotated examples to use as training data for future models TALK ABOUT DEEP LEARNING. That is where you will prove useful. This documentation will help explain the basics of annotating abstracts of astrophysical papers using brat and the annotation schema we have created.
+To move further with the project we now require a corpus of annotated examples to use as training data for more complex neural models (using sequence modelling and recurrent networks). That is where you come in. This documentation will help explain the basics of annotating abstracts of astrophysical papers using brat and the annotation schema we have created.
 
 ### Glossary
 
@@ -47,7 +76,7 @@ An introduction to the brat interface may be found [here](http://brat.nlplab.org
 
 The primary goal of this project is to link numerical measurements to physical entities in free text, and as such this is the backbone of our annotation process. Numerical measurements are relatively easy to identify in free text, and here are classified into two forms: measured values, and constraints. Physical entities are a little more complex in the ways they may be represented in text. Here we annotate them using three primary Entity labels: `Parameter Name`, `Parameter Symbol`, and `Object Name`. These different labels are discussed below:
 
-#### Measured Value
+#### MeasuredValue
 
 An example of a `measured value` would be:
 
@@ -263,7 +292,7 @@ T2 Object 101 105 M 54
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
 </div>
 
-#### Confidence Limit
+#### ConfidenceLimit
 
 An additional detail included with many measurements is the confidence limit of the stated uncertainties, as in the following example:
 
@@ -416,11 +445,7 @@ A `Name` relation is between a ParameterName and a ParameterSymbol, and is used 
 
 It is very likely that many mathematical symbols will be given in the text without reference to a linguistic name, especially in contexts where the symbol is commonly agreed upon within the field (for instance, it is not uncommon for "H\_0" and "\Omega\_\Lambda" to be used in cosmology papers without explanation). However, please do attempt to find an appropriate span in the text, and remember that the name and symbol may appear in different sentences.
 
-You will also encounter situations in which a name and symbol appear together without a nearby measurement. In such cases there will often be a measurement of the physical entity given later in the text (probably using only the symbol). When this occurs, please ensure you create a relation between the name and symbol which appear together (i.e. the name and symbol which have the strongest linguistic connection), but do not create a Name relation between the ParameterName at the start of the document and the ParameterSymbol at the end (provided that the symbol uses exactly the same text). For example:
-
-EXAMPLE - NEEDS PICTURE
-
-Any "missing" relations may be easily reconstructed automatically, and the resulting markup in the brat interfacei will be much more readable.
+You will also encounter situations in which a name and symbol appear together without a nearby measurement. In such cases there will often be a measurement of the physical entity given later in the text (probably using only the symbol). When this occurs, please ensure you create a relation between the name and symbol which appear together (i.e. the name and symbol which have the strongest linguistic connection), but do not create a Name relation between the ParameterName at the start of the document and the ParameterSymbol at the end (provided that the symbol uses exactly the same text). Any "missing" relations may be easily reconstructed automatically, and the resulting markup in the brat interfacei will be much more readable.
 
 However, if the only name/symbol pair in the text is greatly separated, please do annotate this - we require at least one relation between the spans in a given document.
 
