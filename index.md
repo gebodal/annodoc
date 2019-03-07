@@ -277,9 +277,17 @@ Here we have no indication of what object "inclination" relates to. In cases suc
 
 In the case where the object and property appear in the same sentence, please annotate the Object Name and Property Name separately, as in the following examples:
 
-EXAMPLE WHERE OBJECT AND PARAMETER ARE NEXT TO EACH OTHER
-
-EXAMPLE WHERE OBJECT AND PARAMETER ARE SEPARATED IN SAME SENTENCE
+<div markdown="1">
+~~~ ann
+Using this technique we find the mass of the Milky Way to be 0.85 ^ { +0.23 } _ { -0.26 } \times 10 ^ { 12 } M _ {\odot} .
+T1 ParameterName 33 37 mass
+T2 Object 45 54 Milky Way
+T3 MeasuredValue 61 120 0.85 ^ { +0.23 } _ { -0.26 } \times 10 ^ { 12 } M _ {\odot}
+R1 Property Arg1:T2 Arg2:T1
+R2 Measurement Arg1:T1 Arg2:T3
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(Constructed example.)</span>
+</div>
 
 Please annotate all instances of Object Names that you encounter, even if they are not directly linked to properties or measurements, as this aids our entity recognition models.
 
@@ -469,7 +477,28 @@ Please include these relations wherever possible, as they are prone to linguisti
 
 You may encounter situations in which a single instance of a ParameterName/ParameterSymbol is used to refer to measurements of multiple objects, as in the following:
 
-EXAMPLE
+<div markdown="1">
+~~~ ann
+... determining the mass and effective temperature of \Iota Ori Aa ( 13.1 \pm 0.1 M _ { \odot } , 32.5 \pm 0.2 kK ) and 10 Lac ( 26.9 \pm 0.3 M _ { \odot } , 36 \pm 1 kK) with ...
+T1 ParameterName 20 24 mass
+T2 ParameterName 29 50 effective temperature
+T3 Object 54 66 \Iota Ori Aa
+T4 MeasuredValue 69 95 13.1 \pm 0.1 M _ { \odot }
+T5 MeasuredValue 98 113 32.5 \pm 0.2 kK
+T6 Object 120 126 10 Lac
+T7 MeasuredValue 129 155 26.9 \pm 0.3 M _ { \odot }
+T8 MeasuredValue 158 169 36 \pm 1 kK
+R1 Measurement Arg1:T1 Arg2:T4
+R2 Measurement Arg1:T2 Arg2:T5
+R3 Property Arg1:T3 Arg2:T4
+R4 Property Arg1:T3 Arg2:T5
+R5 Measurement Arg1:T1 Arg2:T7
+R6 Measurement Arg1:T2 Arg2:T8
+R7 Property Arg1:T6 Arg2:T7
+R8 Property Arg1:T6 Arg2:T8
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(Constructed example.)</span>
+</div>
 
 In such cases, you may create a property relation from the Object to the specific MeasuredValue/Constraint, along with the Measurement relation from the ParameterName/ParameterSymbol to the MeasuredValue/Constraint.
 
@@ -540,7 +569,7 @@ The `FromLiterature` attribute is used to indicate that a given MeasuredValue or
 
 #### Incorrect
 
-The `Incorrect` attribute is used to indicate that the measurement annotation has been deemed incorrect by the authors of the paper. Usually this will be for a quoted value, where the authors are referencing a value from literature which their work disagrees with (they may have a competing value of their own given in the text). However, it is also possible that the authors provide their own determination of a given quantity, and note its disagreement with the literature value, and conclude that there is some underlying problem in their assumptions or technique - whilst rare, this can occur (REFERENCE HIGH H\_0 VALUE PAPER).
+The `Incorrect` attribute is used to indicate that the measurement annotation has been deemed incorrect by the authors of the paper. Usually this will be for a quoted value, where the authors are referencing a value from literature which their work disagrees with (they may have a competing value of their own given in the text). However, it is also possible that the authors provide their own determination of a given quantity, and note its disagreement with the literature value, and conclude that there is some underlying problem in their assumptions or technique - whilst rare, this can occur.
 
 #### AcceptedValue
 
