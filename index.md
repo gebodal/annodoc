@@ -387,8 +387,8 @@ We find a \rho _ { DM } ( R _ { 0 } ) = 0.385 \pm 0.027 GeV cm ^ { -3 } for the 
 T1 ParameterSymbol 10 37 \rho _ { DM } ( R _ { 0 } )
 T2 MeasuredValue 40 71 0.385 \pm 0.027 GeV cm ^ { -3 }
 T3 Details 80 95 Einasto profile
-T4 100 127 \rho _ { DM } ( R _ { 0 } )
-T5 130 161 0.389 \pm 0.025 GeV cm ^ { -3 }
+T4 ParameterSymbol 100 127 \rho _ { DM } ( R _ { 0 } )
+T5 MeasuredValue 130 161 0.389 \pm 0.025 GeV cm ^ { -3 }
 T6 Details 170 173 NFW
 R1 Measurement Arg1:T1 Arg2:T2
 R2 Condition Arg1:T2 Arg2:T3
