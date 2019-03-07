@@ -559,8 +559,6 @@ An attribute is a label associated with an entity annotation. This is used to pr
 
 An attribute may be added to an annotation when the annotation is created, or by double clicking on an existing annotation. At the bottom of the window which appears in these cases will be a list of available attributes for the annotation - simply click on the attribute name to toggle it on/off. Multiple attributes may be placed on the same annotation. Note that attributes are entity-type specific, and so it is possible that no options for attributes may appear for a given entity type.
 
-PICTURE
-
 For this project, only MeasuredValue and Constraint entities have available attributes. These are detailed below.
 
 #### FromLiterature
