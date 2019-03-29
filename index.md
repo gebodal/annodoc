@@ -37,7 +37,6 @@ Welcome to the Numerical Atlas annotation project documentation. The following s
 		* [UpperBound and LowerBound](#upperbound-and-lowerbound)
 * [Cases to Ignore](#cases-to-ignore)
 * [Contact](#contact)
-   
 
 
 ## Project Goal
@@ -170,7 +169,7 @@ Property names are identified using the `Parameter Name` annotation. This annota
 ~~~ ann
 ...this time-delay estimate yields a Hubble parameter of H _ { 0 } = 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } } ( 95 \% confidence level ) where...
 T1 ParameterName 37 53 Hubble parameter
-T2 ParameterSymbol 57 66 H _ { 0 } 
+T2 ParameterSymbol 57 66 H _ { 0 }
 T3 MeasuredValue 69 147 52 ^ { +14 } _ { -8 } ~ { } { km } ~ { } { s ^ { -1 } } ~ { } { Mpc ^ { -1 } }
 T4 ConfidenceLimit 150 155 95 \%
 R1 Name Arg1:T1 Arg2:T2
@@ -551,7 +550,37 @@ R2 Defined Arg1:T2 Arg2:T3
 
 #### Condition
 
-A `Condition` relation is between a MeasuredValue or Constraint and a Details, and is used to link contingent information to a measurement annotation. Examples and discussion may be found in the [Details](#details "Details") section above.
+A `Condition` relation is between a MeasuredValue or Constraint and a Details, MeasuredValue, or Constraint, and is used to link contingent information to a measurement annotation. General examples and discussion may be found in the [Details](#details "Details") section above.
+
+Further to the examples in given in the [Details](#details "Details") section, there may be situations where a measurement is contingent upon another measurement (for example, a derived value being contingent on best-fit model parameters). In cases such as this, a Condition relation may be used to indicate that one MeasuredValue/Constraint is dependant upon another.
+
+#### Equivalence
+
+An `Equivalence` relation is between two ObjectName entities, and indicates that the two entities are equivalent - for example, the two entities may be different names for the same object (such as a full name and an abbreviation), or the author may have used different technical terms to refer to the same underlying object.
+
+Note that this relation is for instances where two different spans are used to refer to the same object. Do not link identical ObjectName entities with this relation (this may be done automatically). This relation exists for times when different strings of characters are used to refer to the same object.
+
+#### Contains
+
+A `Contains` relation is between two ObjectName entities, and indicates that one object is contained within, or is a sub-component of, another. For example, the phrase "dark matter halo" (an ObjectName when it appears in our text) is used to refer to the halo of the "Milky Way" (another ObjectName in our text). We would use a Contains relation to express this. For example:
+
+<div markdown="1">
+~~~ ann
+In the case of the Milky Way, we find a dark matter halo density of ( 4 \pm 0.1 ) \times 10 ^ 7 M _ { \odot } / kpc ^ 3
+T1 ObjectName 19 28 Milky Way
+T2 ObjectName 40 56 dark matter halo
+T3 ParamaterName 57 64 density
+T4 MeasuredValue 68 119 ( 4 \pm 0.1 ) \times 10 ^ 7 M _ { \odot } / kpc ^ 3
+R1 Contains Arg1:T1 Arg2:T2
+R2 Property Arg1:T2 Arg2:T3
+R3 Measurement Arg1:T3 Arg2:T4
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(Constructed example.)</span>
+</div>
+
+This information is useful for building a heirarchical representation of information, aiding search and cross-linking different measurements.
+
+Note that the direction of this relation is important, and should be made Parent → Child.
 
 ### Attributes
 
