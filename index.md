@@ -30,6 +30,8 @@ Welcome to the Numerical Atlas annotation project documentation. The following s
 		* [Confidence](#confidence)
 		* [Defined](#defined)
 		* [Condition](#condition)
+		* [Equivalence](#equivalence)
+		* [Contains](#contains)
 	* [Attributes](#attributes)
 		* [FromLiterature](#fromliterature)
 		* [Incorrect](#incorrect)
