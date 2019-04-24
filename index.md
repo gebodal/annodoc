@@ -86,14 +86,42 @@ An example of a `measured value` would be:
 H _ { 0 } = 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma )
 T1 ParameterSymbol 0 9 H _ { 0 }
 T2 MeasuredValue 12 54 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
-T3 ConfidenceLimit 55 67 ( 1 \sigma )
+T3 ConfidenceLimit 58 65 1 \sigma
 R1 Measurement Arg1:T1 Arg2:T2
 R2 Confidence Arg1:T2 Arg2:T3
 ~~~
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
 </div>
 
-When annotating a measured value, please include the central value, along with any uncertainties and units that may be given. Measured values in a scientific context should have at least one uncertainty associated with them, but it is possible that this uncertainty may be given somewhere else in the text. If this is the case, please use the SeparatedUncertainty annotation [below](#separateduncertainty "SeparatedUncertainty"). If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
+Alternatively, as a range:
+
+<div markdown="1">
+~~~ ann
+H _ { 0 } = 68 - 72 { km s } ^ { -1 } Mpc ^ { -1 } ( 1 \sigma )
+T1 ParameterSymbol 0 9 H _ { 0 }
+T2 MeasuredValue 12 50 71 \pm 0.04 { km s } ^ { -1 } Mpc ^ { -1 }
+T3 ConfidenceLimit 53 61 1 \sigma
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Confidence Arg1:T2 Arg2:T3
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
+</div>
+
+When annotating a measured value, please include the central value or range, along with any uncertainties and units that may be given. This includes any bracketed notes which may accompany the uncertainties, as shown in this example:
+
+<div markdown="1">
+~~~ ann
+w = -0.81 ^ { +0.16 } _ { -0.18 } ( \mathrm { stat } ) { \pm 0.15 } ( \mathrm { sys } )
+T1 ParameterSymbol 0 1 w
+T2 MeasuredValue 4 87 -0.81 ^ { +0.16 } _ { -0.18 } ( \mathrm { stat } ) { \pm 0.15 } ( \mathrm { sys } )
+R1 Measurement Arg1:T1 Arg2:T2
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0910.2193" target="_blank">arXiv</a>)</span>
+</div>
+
+Please note that not all MeasuredValues will follow an equals sign. Some may use other similar symbols, such as `\sim`, or may use no equivalence sign at all.
+
+Measured values in a scientific context should have at least one uncertainty associated with them (unless given as a range, in which case the uncertainty is implied rather than stated), but it is possible that this uncertainty may be given somewhere else in the text. If this is the case, please use the SeparatedUncertainty annotation [below](#separateduncertainty "SeparatedUncertainty"). If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
 
 <div markdown="1">
 ~~~ ann
@@ -108,6 +136,21 @@ R2 Measurement Arg1:T2 Arg2:T3
 </div>
 
 The "redshift z = 0.275" is definitely not a MeasuredValue, despite having a name, symbol, and value.
+
+Many unusual units or parameterisations may be used to display measurements in text, and we ask if you could include them in the MeasuredValue (or similar) annotation (bearing in mind that we are not using overlapping annotations for this project). For example, in the following, `\Omega _ { m }` is both used to parameterise the measurement of `\sigma _ { 8 }`, but is not annotated as a ParameterSymbol inside the MeasuredValue:
+
+<div markdown="1">
+~~~ ann
+we obtain \sigma _ { 8 } = ( 0.508 \pm 0.019 ) \Omega _ { m } ^ { - ( 0.253 \pm 0.024 ) } , with \Omega _ { m } < 0.34 at 68 per cent confidence
+T1 ParameterSymbol 10 24 \sigma _ { 8 }
+T2 MeasuredValue 27 89 ( 0.508 \pm 0.019 ) \Omega _ { m } ^ { - ( 0.253 \pm 0.024 ) }
+T3 Constraint 97 118 \Omega _ { m } < 0.34
+T4 ConfidenceLimit 122 133 68 per cent
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Confidence Arg1:T3 Arg2:T4
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0208394" target="_blank">arXiv</a>)</span>
+</div>
 
 A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed [below](#attributes "Attributes").
 
@@ -248,6 +291,23 @@ R2 Measurement Arg1:T2 Arg2:T3
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2535" target="_blank">arXiv</a>)</span>
 </div>
 
+You may encounter situations in which a ParameterSymbol is given in two forms. For example, in the following, we have a parameter `\beta`, which is measured for two different scenarios:
+
+<div markdown="1">
+~~~ ann
+We find \beta _ { I } = 0.42 ^ { +0.10 } _ { -0.06 } and \beta _ { O } = 0.26 \pm 0.08
+T1 ParameterSymbol 8 21 \beta _ { I }
+T2 MeasuredValue 24 52 0.42 ^ { +0.10 } _ { -0.06 }
+T3 ParameterSymbol 57 70 \beta _ { O }
+T4 MeasuredValue 73 86 0.26 \pm 0.08
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Measurement Arg1:T3 Arg2:T4
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/9910340" target="_blank">arXiv</a>)</span>
+</div>
+
+In such cases, please annotate each subscripted (or otherwise demarcated) symbol as its own ParameterSymbol, as above.
+
 As for ParameterNames, please annotate all instances of ParameterSymbols you encounter, even if they appear independently of any measurements or ParameterNames.
 
 <div markdown="1">
@@ -300,6 +360,8 @@ T2 Object 101 105 M 54
 ~~~
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
 </div>
+
+Determining when to use an Object annotation, rather than incorporating it into a ParameterName or simply leaving it out of the annotation, can be difficult. In general, if you encounter a situation where you have a parameter name which requires the context of another entity to be understood, then annotate that entity as an Object. For example, if we have (a contrived sentence), "Considering neutrinos, we find the average mass to be NUMBER", then "neutrinos" is operating as an Object in this sentence - mostly by necessity in terms of the schema. There will be other situations in which an Object annotation is not required. A common example would be parameters appended with "of the Universe" - in such a case, a "Universe" object would most likely be superfluous.
 
 #### ConfidenceLimit
 
@@ -358,6 +420,18 @@ T1 ParameterName 0 24 \Omega _ { b } h ^ { 2 }
 T2 MeasuredValue 27 58 0.034 ^ { +0.007 } _ { -0.007 }
 ~~~
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0212497" target="_blank">arXiv</a>)</span>
+</div>
+
+Please note that Definitions do not always appear with an equals sign, but may also be given with a `\propto` or similar symbol. In such cases, please annotate as a simple Definition, with associated Defined relation (see [below](#defined "Defined")), as in the following:
+
+<div markdown="1">
+~~~ ann
+A measurement of the parameter \mu \propto \Omega ^ { 2 } _ { b } h ^ { 3 } / \Gamma
+T1 ParameterSymbol 31 34 \mu
+T2 Definition 43 84 \Omega ^ { 2 } _ { b } h ^ { 3 } / \Gamma
+R1 Defined Arg1:T1 Arg2:T2
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/9612245" target="_blank">arXiv</a>)</span>
 </div>
 
 #### Details
@@ -521,6 +595,21 @@ R2 Confidence Arg1:T2 Arg2:T3
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
 </div>
 
+It is also possible that a Confidence relation may be used to express the confidence at which a value is excluded, as in the following example:
+
+<div markdown="1">
+~~~ ann
+\Omega _ { m } = 1 model is excluded at the 97 % confidence level
+T1 ParameterValue 0 14 \Omega _ { m }
+T2 MeasuredValue 17 18 1
+T3 ConfidenceLimit 44 48 97 %
+A1 Incorrect T2
+R1 Measurement Arg1:T1 Arg2:T2
+R2 Confidence Arg1:T2 Arg2:T3
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/9611105" target="_blank">arXiv</a>)</span>
+</div>
+
 #### Defined
 
 A `Defined` relation is between a ParameterName or ParameterSymbol and a Definition, and is used to indicate that the physical entity in question is defined by the mathematical expression in the Definition. Examples of this would be:
@@ -625,6 +714,10 @@ A1 LowerBound T3
 the linguistics of the sentence must be taken into account before the nature of the constraint may be inferred - hence we require the annotator to include this information in the annotation. Also of note here is that the ParameterName also requires a separate annotation.
 
 (In the above example, hover over the `Constraint` annotation to see that it has the `LowerBound` attribute.)
+
+## Notes
+
+* As a reminder, please do not create any overlapping annotations - our later analysis will assume as much, and it simplifies the interpretation of your annotations on our end.
 
 ## Cases to Ignore
 
