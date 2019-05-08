@@ -597,6 +597,10 @@ It is possible that a given ParameterName or ParameterSymbol may have multiple m
 
 A `Uncertainty` relation starts at a MeasuredValue and ends at a SeparatedUncertainty, and is used to indicate that the stated uncertainty (given at a separate location in the text) relates to the given measurement.
 
+#### UncertaintyName
+
+An `UncertaintyName` relation starts at a ParameterName or ParameterSymbol and ends at a SeparatedUncertainty. It is used to indicate that a SeparatedUncertainty relates to a given name in the text (commonly a ParameterSymbol prefixed by "\Delta" or similar).
+
 #### Name
 
 A `Name` relation is between a ParameterName and a ParameterSymbol, and is used to indicate that the given ParameterName is the linguistic name of the ParameterSymbol. For instance, the phrase "Hubble constant" is the linguistic name (ParameterName) for the symbol "H\_0" (ParameterSymbol).
