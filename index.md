@@ -25,6 +25,7 @@ Welcome to the Numerical Atlas annotation project documentation. The following s
 	* [Relations](#relations)
 		* [Measurement](#measurement)
 		* [Uncertainty](#uncertainty)
+		* [UncertaintyName](#uncertaintyname)
 		* [Name](#name)
 		* [Property](#property)
 		* [Confidence](#confidence)
@@ -223,19 +224,30 @@ R2 Uncertainty Arg1:T1 Arg2:T3
 
 #### Constraint
 
-And an example of a `constraint` would be:
+The Constraint annotation is used for values which specify an upper or lower bound on a quantity. For instance, in the following example we have two Constraints on the ParameterSymbol "\Omega _ { k }":
 
 <div markdown="1">
 ~~~ ann
 -0.0179 < \Omega _ { k } < 0.0081 \mbox { ( 95 \% CL ) }
-T1 Constraint 0 33 -0.0179 < \Omega _ { k } < 0.0081
-T2 ConfidenceLimit 44 49 95 \%
-R1 Confidence Arg1:T1 Arg2:T2
+T1 Constraint 0 7 -0.0179
+T2 Constraint 27 33 0.0081
+T3 ParameterSymbol 10 24 \Omega _ { k }
+A1 LowerBound T1
+A2 UpperBound T2
+T4 ConfidenceLimit 44 49 95 \%
+R1 Measurement Arg1:T3 Arg2:T1
+R2 Measurement Arg1:T3 Arg2:T2
+R3 Confidence Arg1:T1 Arg2:T4
+R4 Confidence Arg1:T2 Arg2:T4
 ~~~
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0803.0732" target="_blank">arXiv</a>)</span>
 </div>
 
-When annotating a constraint, please include the value and any associated units, the equality operator (`<`, `>`, `\gt`, `\lt`, `\geq`, etc.), and the mathematical symbol being used in the expression, if present (the individual components may be easily extracted automatically). It is possible that some of these components may not be present in the constraint, as in the following example:
+We use the UpperBound and LowerBound attributes to specify the nature of the constraint. These are discussed [below](#upperbound-and-lowerbound "UpperBound and LowerBound").
+
+When annotating a constraint, please include both the value and any associated units.
+
+It is perfectly possible that a constraint may be given in the text without the use of equality symbols, as in the following:
 
 <div markdown="1">
 ~~~ ann
@@ -251,7 +263,7 @@ A1 LowerBound T3
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0902.1745" target="_blank">arXiv</a>)</span>
 </div>
 
-In this case, we use the UpperBound and LowerBound attributes to specify the nature of the constraint. These are discussed [below](#upperbound-and-lowerbound "UpperBound and LowerBound").
+Please do check carefully for cases such as this, as we would definitely like to capture these more complex relationships between parameters and constraints in free text.
 
 Please note that range values (e.g. "46 - 54 km s ^ { -1 }") should be annotated as a single MeasuredValue, rather than a Constraint (or pair of Constraints).
 
