@@ -365,6 +365,18 @@ R2 Measurement Arg1:T3 Arg2:T4
 
 In such cases, please annotate each subscripted (or otherwise demarcated) symbol as its own ParameterSymbol, as above.
 
+It is also worth noting that a ParameterSymbol may itself be a mathematical expression. For example:
+
+<div markdown="1">
+~~~ ann
+... that match CMBR in our spectral bands of \Delta T / T = 1.9 ^ { +1.3 } _ { -0.7 } \times 10 ^ { -5 } ...
+T1 ParameterSymbol 45 57 \Delta T / T
+T2 MeasuredValue 60 104 1.9 ^ { +1.3 } _ { -0.7 } \times 10 ^ { -5 }
+R1 Measurement Arg1:T1 Arg2:T2
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/9910340" target="_blank">arXiv</a>)</span>
+</div>
+
 As for ParameterNames, please annotate all instances of ParameterSymbols you encounter, even if they appear independently of any measurements or ParameterNames. If something is obviously (to you) a parameter of some kind, even if not directly related to a measurement, please do annotate it, along with any accompanying ParameterNames and appropriate relations.
 
 <div markdown="1">
