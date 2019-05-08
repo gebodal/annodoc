@@ -119,6 +119,20 @@ R1 Measurement Arg1:T1 Arg2:T2
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0910.2193" target="_blank">arXiv</a>)</span>
 </div>
 
+Further, please note that measurements may sometimes be given with percentage uncertainties, expressed after the given units (if present). This is a separate case from both [SeparatedUncertainty](#separateduncertainty "SeparatedUncertainty") and [ConfidenceLimit](#confidencelimit "ConfidenceLimit") - please examine such cases carefully, however, to ensure you have the correct annotation for the situation. An example of a percentage uncertainty to be included in a MeasuredValue would be:
+
+<div markdown="1">
+~~~ ann
+We also measure the mass of the central black hole to be 1.09 \times 10 ^ { 7  } M _ { \odot  } \pm 14 \% .
+T1 ParameterName 20 24 mass
+T2 Object 32 50 central black hole
+T3 MeasuredValue 57 105 1.09 \times 10 ^ { 7  } M _ { \odot  } \pm 14 \%
+R1 Property Arg1:T2 Arg2:T1
+R1 Measurement Arg1:T1 Arg2:T3
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/1005.1955" target="_blank">arXiv</a>)</span>
+</div>
+
 Please note that not all MeasuredValues will follow an equals sign. Some may use other similar symbols, such as `\sim`, or may use no equivalence sign at all.
 
 Measured values in a scientific context should have at least one uncertainty associated with them (unless given as a range, in which case the uncertainty is implied rather than stated), but it is possible that this uncertainty may be given somewhere else in the text. If this is the case, please use the SeparatedUncertainty annotation [below](#separateduncertainty "SeparatedUncertainty"). If you encounter a value with no uncertainty, which is nonetheless clearly linked to some physical entity, it may require an attribute to be attached to the annotation (which may be done from the window which appears after a span is selected with the cursor, or when double-clicking on an existing annotation) such as the `From Literature` attribute. If none of the attributes seem appropriate, please consider carefully whether this value really constitutes a measurement, or if it is merely some contingent value to another statement in the text. For example, in the following:
@@ -137,6 +151,21 @@ R2 Measurement Arg1:T2 Arg2:T3
 
 The "redshift z = 0.275" is definitely not a MeasuredValue, despite having a name, symbol, and value.
 
+However, in the following case, the author of the paper is making a statement about a measureable quantity ("\Omega _ \Lambda"):
+
+<div markdown="1">
+~~~ ann
+... our results are consistent with a standard flat \Omega _ { \Lambda } = 0.7 " concordance " model ...
+T1 ParameterSymbol 52 72 \Omega _ { \Lambda }
+T2 MeasuredValue 75 78 0.7
+R1 Measurement Arg1:T1 Arg2:T2
+A1 FromLiterature T2
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0111575" target="_blank">arXiv</a>)</span>
+</div>
+
+In this case, while the author is not quoting a novel measurement, they are still expressing information regarding a measureable quantity. As such we are definitely interested in this information, and would like it to be annotated as a MeasuredValue - however, in this case, with a [FromLiterature](#fromliterature "FromLiterature") attribute.
+
 Many unusual units or parameterisations may be used to display measurements in text, and we ask if you could include them in the MeasuredValue (or similar) annotation (bearing in mind that we are not using overlapping annotations for this project). For example, in the following, `\Omega _ { m }` is both used to parameterise the measurement of `\sigma _ { 8 }`, but is not annotated as a ParameterSymbol inside the MeasuredValue:
 
 <div markdown="1">
@@ -153,6 +182,28 @@ R2 Confidence Arg1:T3 Arg2:T4
 </div>
 
 A MeasuredValue annotation may also require an "Attribute" to be set to indicate additional information about the stated measurement. These are discussed [below](#attributes "Attributes").
+
+Please read the text around measurements carefully, as additional measurements (for example, the same quantity under some subtly different assumptions) can easily be missed. For example, there are two measurements of "\beta" here, which should both be annotated:
+
+<div markdown="1">
+~~~ ann
+... the redshift-distortion parameter \beta = 0.49 \pm 0.16 for r = 1 ( \beta = 0.47 \pm 0.16 without finger-of-god compression ) ...
+T1 ParameterName 8 37 redshift-distortion parameter
+T2 ParameterSymbol 38 43 \beta
+T3 MeasuredValue 46 59 0.49 \pm 0.16
+T4 ParameterSymbol 72 77 \beta
+T5 MeasuredValue 80 93 0.47 \pm 0.16
+T6 Detail 64 69 r = 1
+T7 Detail 94 130 without finger-of-god compression
+R1 Name Arg1:T1 Arg2:T2
+R2 Name Arg1:T1 Arg2:T4
+R3 Measurement Arg1:T2 Arg2:T3
+R4 Measurement Arg1:T4 Arg2:T5
+R5 Condition Arg1:T3 Arg2:T6
+R6 Condition Arg1:T5 Arg2:T7
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0111575" target="_blank">arXiv</a>)</span>
+</div>
 
 #### SeparatedUncertainty
 
@@ -202,6 +253,10 @@ A1 LowerBound T3
 
 In this case, we use the UpperBound and LowerBound attributes to specify the nature of the constraint. These are discussed [below](#upperbound-and-lowerbound "UpperBound and LowerBound").
 
+Please note that range values (e.g. "46 - 54 km s ^ { -1 }") should be annotated as a single MeasuredValue, rather than a Constraint (or pair of Constraints).
+
+Also, constraints may be quoted from other sources (either as quoted measurements, or standard assumed constraints). Please do annotate these as Constraint entities with [FromLiterature](#fromliterature "FromLiterature") attributes.
+
 #### Physical Entities
 
 A physical entity here is considered to be a property (either of the Universe or a specific object) which may be measured in some way to produce a numerical result. For instance, we may measure the Hubble Constant (property of the Universe), or the radius of the Milky Way Galaxy.
@@ -226,6 +281,8 @@ R3 Confidence Arg1:T3 Arg2:T4
 
 note that the written name has a separate annotation to the mathematical symbol. The two should be linked by the annotator, however, as discussed [below](#measurement "Measurement").
 
+Umbrella terms are not, themselves, ParameterNames (e.g. "cosmological parameters"). To determine if something qualifies as a ParameterName, consider whether it is something you can measure - if yes, then it is quite probably worthy of being annotated as a ParameterName.
+
 Parameter names can become complicated due to being dependant on other parts of the text (for instance, when the word "radius" is used as a parameter name, what is it the radius of?). This is discussed below in the section on the [Object entity](#objectname "ObjectName").
 
 Please annotate all instances of Parameter Names that you encounter - even if they are not directly tied to a mathematical symbol or measurement. For instance, in the following sentence:
@@ -238,7 +295,7 @@ T1 ParameterName 118 135 Hubble constant
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2195" target="_blank">arXiv</a>)</span>
 </div>
 
-the annotation is helpful, as it aids the entity recoginition phase of our model training.
+the annotation is helpful, as it aids the entity recoginition phase of our model training. If something is obviously (to you) a parameter of some kind, even if not directly related to a measurement, please do annotate it, along with any accompanying ParameterSymbols and appropriate relations.
 
 Exactly where a parameter name begins and ends is a judgement call for the annotator - do be aware that in astrophysical contexts names can become rather verbose, as in the following:
 
@@ -252,7 +309,7 @@ R1 Measurement Arg1:T1 Arg2:T2
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/0709.2535" target="_blank">arXiv</a>)</span>
 </div>
 
-In such cases, please use your judgement to decide if the name qualifies as a single entity, or should be divided into an Object-Property relation, as discussed [below](#object "Object") and in the [relations section](#property "Property").
+In such cases, please use your judgement to decide if the name qualifies as a single entity, or should be divided into an Object-Property relation (see [below](#object "Object") and in the [relations section](#property "Property")). Generally, if a ParameterName seems to contain the name of an object (e.g. a specific star) or class of objects (e.g. "galaxies", "white dwarfs", "neutrinos") please separate the ParameterName into separate Object and ParameterName annotations. For example, the contrived ParameterName("critical mass of white dwarfs") becomes Object("white dwarfs")-Property-ParameterName("critical mass").
 
 ##### ParameterSymbol
 
@@ -308,7 +365,7 @@ R2 Measurement Arg1:T3 Arg2:T4
 
 In such cases, please annotate each subscripted (or otherwise demarcated) symbol as its own ParameterSymbol, as above.
 
-As for ParameterNames, please annotate all instances of ParameterSymbols you encounter, even if they appear independently of any measurements or ParameterNames.
+As for ParameterNames, please annotate all instances of ParameterSymbols you encounter, even if they appear independently of any measurements or ParameterNames. If something is obviously (to you) a parameter of some kind, even if not directly related to a measurement, please do annotate it, along with any accompanying ParameterNames and appropriate relations.
 
 <div markdown="1">
 ~~~ ann
@@ -336,7 +393,7 @@ R1 Measurement Arg1:T1 Arg2:T2
 
 Here we have no indication of what object "inclination" relates to. In cases such as this, however, the object is generally referenced somewhere else in the text, and we use the `Object Name` annotation to identify this object. We may then link the Object Name to the Parameter Name or Parameter Symbol annotation (preferring the written name if available) using the Property relation as described in the [relations section](#property "Property").
 
-In the case where the object and property appear in the same sentence, please annotate the Object Name and Property Name separately, as in the following examples:
+In the case where the object and property appear in the same sentence, please annotate the Object name and ParameterName separately, as in the following examples:
 
 <div markdown="1">
 ~~~ ann
@@ -350,7 +407,7 @@ R2 Measurement Arg1:T1 Arg2:T3
 <span style="float:right;font-size:75%;opacity:0.5">(Constructed example.)</span>
 </div>
 
-Please annotate all instances of Object Names that you encounter, even if they are not directly linked to properties or measurements, as this aids our entity recognition models.
+Please annotate all instances of Object Names that you encounter, even if they are not directly linked to properties or measurements, as this aids our entity recognition models. Generic objects (e.g. "supernova", "galaxies") shouldn't be annotated as Objects unless they function as such in the sentence, however. But specific names (e.g. "NGC 571", "Ceta Ori", "Local Group") should always be annotated.
 
 <div markdown="1">
 ~~~ ann
@@ -362,6 +419,8 @@ T2 Object 101 105 M 54
 </div>
 
 Determining when to use an Object annotation, rather than incorporating it into a ParameterName or simply leaving it out of the annotation, can be difficult. In general, if you encounter a situation where you have a parameter name which requires the context of another entity to be understood, then annotate that entity as an Object. For example, if we have (a contrived sentence), "Considering neutrinos, we find the average mass to be NUMBER", then "neutrinos" is operating as an Object in this sentence - mostly by necessity in terms of the schema. There will be other situations in which an Object annotation is not required. A common example would be parameters appended with "of the Universe" - in such a case, a "Universe" object would most likely be superfluous.
+
+The idea of an Object annotation is that it is a specific object that the measurement relates to (for example, "NCG 0501", "Gamma Ori", or similar), rather than a class of objects, such as "galaxies". The grey area here is that sometimes you will come across a phrase such as, "the critical mass of white dwarf stars", where it is unclear if that is a single ParameterName, or a "critical mass" ParameterName of a "white dwarf" Object. In such cases please use separate ParameterName and Object annotations (so, annotate "white dwarf" as an Object), but this does not mean that you need to annotate every single example of "white dwarf" as an Object - just the ones where it is used as an Object in the sentence.
 
 #### ConfidenceLimit
 
@@ -422,7 +481,7 @@ T2 MeasuredValue 27 58 0.034 ^ { +0.007 } _ { -0.007 }
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0212497" target="_blank">arXiv</a>)</span>
 </div>
 
-Please note that Definitions do not always appear with an equals sign, but may also be given with a `\propto` or similar symbol. In such cases, please annotate as a simple Definition, with associated Defined relation (see [below](#defined "Defined")), as in the following:
+Please note that Definitions do not always appear with an equals sign, but may also be given with a `\propto`, `\sim`, `\approx`, `\equiv`, or similar symbol. In such cases, please annotate as a simple Definition, with associated Defined relation (see [below](#defined "Defined")), as in the following:
 
 <div markdown="1">
 ~~~ ann
@@ -433,6 +492,8 @@ R1 Defined Arg1:T1 Arg2:T2
 ~~~
 <span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/9612245" target="_blank">arXiv</a>)</span>
 </div>
+
+Please note that the Definition should not contain the left-hand-side ParameterSymbol, or the equality symbol. The Definition annotation is specifically for the mathematical expression on the right-hand-side of the equality symbol. Written definitions (i.e. definitions given in written English) should not be annotated using Definition - written definitions are beyond the scope of this project (one day, maybe...). However, do consider if some part of the text in question should be a [ParameterName](#parametername "ParameterName").
 
 #### Details
 
@@ -480,6 +541,8 @@ which is also useful for contextualising the measurement - especially in this ca
 In addition to identifying spans of text which correspond to certain entities (names, symbols, numbers, etc.), we are also interested in the relationships between these entities - hence we define "Relations" between entities. Practically, these relations are created by clicking-and-dragging from one entity annotation to another. A window will appear in the brat interface allowing you to specify which type of relation you wish to create between the two entities. Note that the interface will only present the possible relations which may exist between the two entities, as each relation has defined start and end types.
 
 In all cases, the ideal annotation format would be of the form: Object → ParameterName → ParameterSymbol → Measurement (MeasuredValue or Constraint) → ConfidenceLimit.
+
+It is important to remember that we are primarily interested in linguistic relations between the words and symbols in scientific text. So please try and make your relations match the implied grammatical relations that exist in the text, where possible - even if you have an identical ParameterSymbol entity closer to the MeasuredValue, we are interested in the one which the __text__ links to the measurement. The relations we're annotating are just as important as the entities. The general rule of thumb is that if you need an entity because there should be a relation, then there should be another entity annotation there.
 
 The available relations are discussed in the following sections.
 
@@ -647,7 +710,17 @@ Further to the examples in given in the [Details](#details "Details") section, t
 
 #### Equivalence
 
-An `Equivalence` relation is between two ObjectName entities, and indicates that the two entities are equivalent - for example, the two entities may be different names for the same object (such as a full name and an abbreviation), or the author may have used different technical terms to refer to the same underlying object.
+An `Equivalence` relation is between two ObjectName entities, and indicates that the two entities are equivalent - for example, the two entities may be different names for the same object (such as a full name and an abbreviation), or the author may have used different technical terms to refer to the same underlying object. For example:
+
+<div markdown="1">
+~~~ ann
+We reexamine likelihood analyzes of the Local Group ( LG  ) acceleration , paying particular attention to nonlinear effects .
+T1 Object 40 51 Local Group
+T2 Object 54 56 LG
+R1 Equivalence Arg1:T1 Arg2:T2
+~~~
+<span style="float:right;font-size:75%;opacity:0.5">(See on <a href="https://arxiv.org/abs/astro-ph/0401195" target="_blank">arXiv</a>)</span>
+</div>
 
 Note that this relation is for instances where two different spans are used to refer to the same object. Do not link identical ObjectName entities with this relation (this may be done automatically). This relation exists for times when different strings of characters are used to refer to the same object.
 
